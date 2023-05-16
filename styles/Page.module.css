@@ -105,7 +105,7 @@
 
 .chat {
   background: rgba(22, 28, 36, 1);
-  height: 100vh; 
+  height: 100vh;
   max-height: -webkit-fill-available;
   width: 100%;
   padding: 0px;
@@ -144,20 +144,19 @@
 
   @media (min-width: 931px) {
     position: relative;
-  height: 80%;
-  width: 15%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  background: #212b36;
-  border-radius: 9px;
-  padding: 0.1% 1%;
+    height: 80%;
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background: #212b36;
+    border-radius: 9px;
+    padding: 0.1% 1%;
   }
 }
 
 .placeholder2 {
-
   @media only screen and (max-width: 930px) {
     width: 15%;
     height: 100%;
@@ -169,7 +168,6 @@
 }
 
 .placeholder1 {
-
   @media only screen and (max-width: 930px) {
     display: none;
   }
@@ -184,9 +182,8 @@
     justify-content: center;
     width: 15%;
     height: 100%;
-  
   }
-  @media  (min-width: 931px) {
+  @media (min-width: 931px) {
     display: none;
   }
 }
@@ -295,7 +292,6 @@
 }
 
 .inputBoxHints {
-  @media (min-width: 931px) {
   display: flex;
   flex-direction: row;
   gap: 0 2%;
@@ -304,24 +300,9 @@
   white-space: nowrap;
   height: 6vh;
   width: 100%;
-  }
-  @media (max-width: 930px) {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    gap: 0 2%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    height: 6vh;
-  }
-
-
-
 }
 
 .inputBoxHints button {
-  @media (min-width: 931px) {
   outline: none;
   border: none;
   height: 6vh;
@@ -329,17 +310,10 @@
   border-radius: 8px;
   color: white;
   padding: 0 5%;
-  width: 24vw;
-  }
+  max-width: 24vw;
+
   @media (max-width: 930px) {
-    width: 72vw;
-    outline: none;
-    border: none;
-    height: 6vh;
-    background: rgba(145, 158, 171, 0.16);
-    border-radius: 8px;
-    color: white;
-    padding: 0 5%;
+    max-width: 72vw !important;
   }
 }
 
@@ -417,12 +391,12 @@
 
 .inputBox {
   @media (min-width: 931px) {
-  width: 60vw;
-  outline: none;
-  border: none;
-  background: transparent;
-  color: white;
-  padding-left: 1%;
+    width: 60vw;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: white;
+    padding-left: 1%;
   }
 
   @media (max-width: 930px) {
@@ -434,7 +408,6 @@
 }
 
 .inputContainer {
-  
   @media only screen and (max-width: 930px) {
     width: 80%;
     padding: 3%;
@@ -442,15 +415,15 @@
   }
 
   @media (min-width: 931px) {
-  display: flex;
-  flex-direction: row;
-  background: #212b36;
-  width: 60vw;
-  outline: none;
-  border: none;
-  border-radius: 8px;
-  padding: 1%;
-  margin-top: 1%;
+    display: flex;
+    flex-direction: row;
+    background: #212b36;
+    width: 60vw;
+    outline: none;
+    border: none;
+    border-radius: 8px;
+    padding: 1%;
+    margin-top: 1%;
   }
 }
 
@@ -627,7 +600,7 @@
 }
 
 .addCreditsPopup {
-  position:relative;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -647,7 +620,7 @@
   animation-name: fadeBlur;
   animation-duration: 6s;
   animation-fill-mode: forwards;
-  background:black;
+  background: black;
 
   @media only screen and (max-width: 1024px) {
     background-image: url("/mobileSplash.svg");
@@ -693,12 +666,12 @@
 }
 
 .main {
-  background:black;
+  background: black;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 100vh; 
+  height: 100vh;
   max-height: -webkit-fill-available;
   width: 100vw;
 
