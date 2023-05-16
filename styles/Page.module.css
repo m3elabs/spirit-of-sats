@@ -1,0 +1,722 @@
+@keyframes fadeBlur {
+  from {
+    opacity: 1;
+    filter: blur(0);
+  }
+  to {
+    opacity: 0.5;
+    filter: blur(10.5px);
+  }
+}
+
+@keyframes lighten {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes typing {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.thinkingText {
+  animation: typing 3s infinite;
+  font-size: 52px;
+  height: 2vh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.thinkingWrapper {
+  background: rgba(0, 255, 65, 1);
+  border-radius: 8px;
+  height: fit-content;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  padding: 3% 0;
+}
+
+.titleModal {
+  height: fit-content;
+  width: 30vw;
+  border-radius: 16px;
+  z-index: 2;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(33, 43, 54, 0.41);
+  max-width: 30vw;
+  max-height: 70vh;
+  z-index: 1;
+  animation-name: lighten;
+  animation-duration: 6s;
+  animation-fill-mode: forwards;
+  @media only screen and (max-width: 600px) {
+    border: none;
+    background: transparent;
+    justify-content: center;
+    max-width: 100vw;
+    width: 100vw;
+  }
+
+  @media only screen and (min-width: 601px) and (max-width: 1024px) {
+    border: none;
+    background: transparent;
+    justify-content: center;
+    max-width: 60vw;
+    width: 60vw;
+  }
+  padding: 4% 1%;
+}
+
+.buttonContainer {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.enterButton {
+  width: 100%;
+  background: rgba(0, 255, 65, 1);
+  outline: none;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 4% 0;
+  margin-bottom: 2%;
+}
+
+.chat {
+  background: rgba(22, 28, 36, 1);
+  height: 100vh;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+}
+
+.detailBar {
+  height: 10%;
+  width: 98%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1%;
+
+  @media only screen and (max-width: 930px) {
+    height: 7%;
+  }
+}
+
+.addCredits {
+  width: 100%;
+  background: rgba(0, 255, 65, 1);
+  outline: none;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 4% 0;
+  margin-bottom: 2%;
+}
+
+.accountBox {
+  position: relative;
+  height: 80%;
+  width: 15%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background: #212b36;
+  border-radius: 9px;
+  padding: 0.1% 1%;
+
+  @media only screen and (max-width: 930px) {
+    display: none;
+  }
+}
+
+.placeholder2 {
+  width: 15%;
+  @media only screen and (min-width: 930px) {
+    display: none;
+  }
+}
+
+.placeholder1 {
+  width: 15%;
+  @media only screen and (max-width: 930px) {
+    display: none;
+  }
+}
+
+.hamburgermenu {
+  display: flex;
+  justify-content: center;
+  width: 15%;
+  height: 100%;
+  @media only screen and (min-width: 930px) {
+    display: none;
+  }
+}
+
+.logo2Placement {
+  display: flex;
+  justify-content: center;
+  width: 15%;
+  height: 100%;
+}
+
+.chatMessages {
+  height: 70%;
+  overflow-y: auto;
+  color: white;
+}
+
+.satoshiMessage {
+  background: #212b36;
+}
+
+.satoshiMessage span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 60%;
+  margin: auto;
+  padding: 3% 0;
+  line-height: 1.5;
+  gap: 0 3%;
+  overflow-x: none;
+  @media only screen and (max-width: 930px) {
+    width: 87%;
+    margin: 3% 5%;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.5); /* Dim the background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.userMessage span {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 60%;
+  margin: auto;
+  padding: 3% 0;
+  line-height: 1.5;
+  gap: 0 3%;
+  @media only screen and (max-width: 930px) {
+    width: 90%;
+    margin: 3% 5%;
+  }
+}
+
+.playButton {
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+.accountDetails {
+  width: 100%;
+  padding-top: 5%;
+  gap: 2vh 0;
+  position: absolute;
+  bottom: -35vh;
+  height: fit-content;
+  left: 0;
+  right: 0;
+  border-radius: 9px;
+  background: #212b36;
+  display: flex;
+  flex-direction: column;
+}
+
+.divider {
+  border: 1px solid white;
+}
+
+.creditsButton {
+  background: rgba(0, 255, 65, 1);
+  outline: none;
+  border: none;
+  font-weight: bold;
+  width: 90%;
+  border-radius: 8px;
+  padding: 4% 0;
+  margin: 0 auto;
+  margin-bottom: 2%;
+  box-shadow: 0px 8px 16px rgba(0, 171, 85, 0.24);
+}
+
+.accountUnselected {
+  display: none;
+}
+
+.inputBoxHints {
+  display: flex;
+  flex-direction: row;
+  gap: 0 2%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  height: 6vh;
+  @media only screen and (max-width: 930px) {
+    width: 100%;
+  }
+}
+
+.inputBoxHints button {
+  outline: none;
+  border: none;
+  height: 6vh;
+  background: rgba(145, 158, 171, 0.16);
+  border-radius: 8px;
+  color: white;
+  padding: 0 5%;
+  width: 24vw;
+
+  @media only screen and (max-width: 930px) {
+    width: 72vw;
+  }
+}
+
+.creditOptions {
+  display: flex;
+  flex-direction: row;
+  justify-content: "space-between";
+  width: 256px;
+  gap: 0 3%;
+}
+
+.creditOptionsUnselected {
+  outline: none;
+  border: none;
+  height: 6vh;
+  background: rgba(145, 158, 171, 0.16);
+  border-radius: 8px;
+  color: white;
+  padding: 0 5%;
+  flex: 1;
+  margin-bottom: 5%;
+}
+
+.createAccount {
+  outline: none;
+  border: none;
+  height: 6vh;
+  background: rgba(145, 158, 171, 0.16);
+  border-radius: 8px;
+  color: white;
+  padding: 0 5%;
+  width: 50%;
+  margin-bottom: 5%;
+}
+
+.refresh {
+  outline: none;
+  border: none;
+  height: 6vh;
+  background: rgba(145, 158, 171, 0.16);
+  border-radius: 8px;
+  color: white;
+  padding: 0 5%;
+  width: 20%;
+  margin-bottom: 5%;
+}
+
+.creditOptionsSelected {
+  outline: none;
+  border: 1px solid rgba(0, 255, 65, 1);
+  height: 6vh;
+  background: rgba(0, 255, 65, 0.08);
+  border-radius: 8px;
+  color: rgba(0, 255, 65, 1);
+  padding: 0 5%;
+  flex: 1;
+  margin-bottom: 5%;
+}
+
+.menuTabs {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  justify-content: center;
+  height: 30%;
+  gap: 3vh 0;
+  padding: 5%;
+}
+
+.menuTabs div {
+  display: flex;
+  flex-direction: row;
+  gap: 0 9%;
+}
+
+.inputBox {
+  width: 60vw;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: white;
+  padding-left: 1%;
+  @media only screen and (max-width: 930px) {
+    width: 90%;
+  }
+}
+.inputBox::placeholder {
+  color: #ffffff99;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  background: #212b36;
+  width: 60vw;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  padding: 1%;
+  margin-top: 1%;
+
+  @media only screen and (max-width: 930px) {
+    width: 80%;
+    padding: 3%;
+    margin-top: 4%;
+  }
+}
+
+.inputContainer button {
+  outline: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+}
+
+.accountInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.creditColumn {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.creditRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 0 3%;
+  color: rgba(145, 158, 171, 1);
+  font-weight: bold;
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.btcLogins {
+  display: flex;
+  flex-direction: row;
+  margin: 3% 0 9% 0;
+  width: 90%;
+  gap: 0 2%;
+}
+
+.lightningLogin {
+  flex: 1;
+  background: rgba(145, 158, 171, 0.12);
+  border: 1px solid rgba(145, 158, 171, 0.24);
+  border-radius: 8px;
+  padding: 3% 0;
+  color: white;
+  font-weight: bold;
+}
+
+.selected {
+  flex: 1;
+  background: rgba(145, 158, 171, 0.4);
+  border: 1px solid rgba(145, 158, 171, 0.24);
+  border-radius: 8px;
+  padding: 3% 0;
+  color: white;
+  font-weight: bold;
+}
+
+.unselected {
+  flex: 1;
+  background: rgba(145, 158, 171, 0.12);
+  border: 1px solid rgba(145, 158, 171, 0.24);
+  border-radius: 8px;
+  padding: 3% 0;
+  color: white;
+  font-weight: bold;
+}
+
+.registerInputContainer {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh 0;
+}
+
+.registerInput {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  outline: none;
+  height: 5vh;
+  border-radius: 8px;
+  padding: 2% 3%;
+  color: white;
+}
+
+.registerInput::placeholder {
+  color: white;
+  font-weight: 100;
+}
+
+.registerPassword {
+  background: transparent;
+  border: none;
+  width: 90%;
+  outline: none;
+  height: 5vh;
+  padding: 2% 0;
+  color: white;
+}
+
+.registerPassword::placeholder {
+  color: white;
+  font-weight: 100;
+}
+
+.registerPasswordContainer {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: transparent;
+  border-radius: 8px;
+  padding: 0 3%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.registerButton {
+  width: 100%;
+  background: rgba(0, 255, 65, 1);
+  outline: none;
+  border: none;
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 4% 0;
+  margin-bottom: 2%;
+}
+
+.login {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 35vw;
+
+  @media only screen and (max-width: 480px) {
+    max-width: 100vw;
+  }
+}
+
+.loginButton {
+  width: 100%;
+  outline: none;
+  font-weight: bold;
+  border: 1px solid rgba(84, 214, 44, 0.48);
+  border-radius: 8px;
+  padding: 4% 0;
+  margin-bottom: 2%;
+  color: rgba(84, 214, 44, 1);
+  background: transparent;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.5); /* Dim the background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.addCreditsPopup {
+  position:relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  background: #212b36;
+  padding: 2%;
+  border-radius: 8px;
+}
+
+.bg {
+  width: 100vw;
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  animation-name: fadeBlur;
+  animation-duration: 6s;
+  animation-fill-mode: forwards;
+  background:black;
+
+  @media only screen and (max-width: 1024px) {
+    background-image: url("/mobileSplash.svg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Small desktops and laptops */
+  @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+    background-image: url("/desktopSatoshi.svg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Medium desktops and laptops */
+  @media only screen and (min-width: 1281px) and (max-width: 1440px) {
+    background-image: url("/desktopSatoshi.svg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Large desktops and laptops */
+  @media only screen and (min-width: 1441px) and (max-width: 1920px) {
+    background-image: url("/desktopSatoshi.svg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Extra-large desktops and laptops */
+  @media only screen and (min-width: 1921px) {
+    background-image: url("/desktopSatoshi.svg");
+    background-size: cover;
+    background-position: top;
+  }
+
+  min-height: 100vh;
+}
+
+.footerTag {
+  @media only screen and (max-width: 930px) {
+    width: 80%;
+  }
+}
+
+.main {
+  background:black;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+
+  /* Mobile devices (portrait) */
+
+  @media only screen and (max-width: 1024px) {
+    .logo {
+      height: inherit !important;
+      z-index: 1;
+      max-width: 70%;
+      max-height: 20%;
+      position: absolute;
+      top: 10%;
+      right: 0;
+      margin: 0 auto;
+      left: 0;
+    }
+    .logo2 {
+      z-index: 1;
+      max-width: 15%;
+      max-height: 100%;
+      margin: auto;
+    }
+    .buttonContainer {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  @media only screen and (min-width: 1025px) {
+    .logo {
+      max-width: 100%;
+      max-height: 40%;
+      z-index: 1;
+      height: inherit !important;
+      animation-name: lighten;
+      animation-duration: 6s;
+      animation-fill-mode: forwards;
+    }
+
+    .logo2 {
+      height: inherit !important;
+      z-index: 1;
+      max-width: 15%;
+      max-height: 10%;
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0 auto;
+      left: 0;
+    }
+    .buttonContainer {
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  padding: 0px;
+  margin: 0px;
+}
