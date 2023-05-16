@@ -105,7 +105,7 @@
 
 .chat {
   background: rgba(22, 28, 36, 1);
-  min-height: 100vh;
+  height: 100vh;
   max-height: -webkit-fill-available;
   width: 100%;
   padding: 0px;
