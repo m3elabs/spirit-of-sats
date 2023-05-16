@@ -139,7 +139,10 @@
 }
 
 .accountBox {
-  position: relative;
+  display: none;
+
+  @media (min-width: 931px) {
+    position: relative;
   height: 80%;
   width: 15%;
   display: flex;
@@ -149,9 +152,6 @@
   background: #212b36;
   border-radius: 9px;
   padding: 0.1% 1%;
-
-  @media only screen and (max-width: 930px) {
-    display: none;
   }
 }
 
