@@ -675,8 +675,9 @@
 }
 
 .footerTag {
-  @media only screen and (max-width: 930px) {
-    width: 80%;
+  width: 80%;
+  @media (min-width: 931px) {
+    width: 100%;
   }
 }
 

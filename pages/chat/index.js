@@ -618,8 +618,8 @@ export default function Chat() {
           <div
             style={{
               padding: "2.5% 0",
-              gap: "2% 0",
-              height: "25%",
+              gap: "1% 0",
+              height: "30%",
               width: "100%",
               display: "flex",
               justifyContent: "center",
