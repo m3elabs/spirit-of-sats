@@ -105,7 +105,8 @@
 
 .chat {
   background: rgba(22, 28, 36, 1);
-  height: 100vh;
+  height: 100vh; 
+  max-height: -webkit-fill-available;
   width: 100%;
   padding: 0px;
   margin: 0px;
@@ -670,7 +671,8 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100vh; 
+  max-height: -webkit-fill-available;
   width: 100vw;
 
   /* Mobile devices (portrait) */
