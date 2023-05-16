@@ -471,7 +471,7 @@ export default function Chat() {
               <img
                 alt="menu"
                 src="/hamburgermenu.svg"
-                width="50%"
+                width="100%"
                 height="100%"
               />
             </span>
@@ -692,7 +692,7 @@ export default function Chat() {
               </button>
             </div>
             <div className={styles.footerTag}>
-              <p style={{ color: "white", opacity: "0.4", fontSize: "13px" }}>
+              <p style={{ color: "white", opacity: "0.4"}}>
                 <a
                   style={{ fontWeight: "bold", color: "white", opacity: "0.5" }}
                   href="google.com"
