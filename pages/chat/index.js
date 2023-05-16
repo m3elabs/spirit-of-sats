@@ -477,7 +477,6 @@ export default function Chat() {
             </span>
             <span className={styles.logo2Placement}>
               <img
-                className={styles.logo2}
                 alt="logo2"
                 src="/spiritLogo2.svg"
               />
