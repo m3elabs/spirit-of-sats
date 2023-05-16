@@ -305,7 +305,13 @@
 .inputBoxHints button {
 
   max-width: 72vw !important;
-  
+  outline: none;
+  border: none;
+  height: 6vh;
+  background: rgba(145, 158, 171, 0.16);
+  border-radius: 8px;
+  color: white;
+  padding: 0 5%;
 
   @media (min-width: 930px) {
     outline: none;
