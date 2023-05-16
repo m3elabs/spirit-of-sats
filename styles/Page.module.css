@@ -302,9 +302,12 @@
   overflow-y: hidden;
   white-space: nowrap;
   height: 6vh;
-  @media only screen and (max-width: 930px) {
+  @media (max-width: 930px) {
     width: 100%;
   }
+  
+
+
 }
 
 .inputBoxHints button {
@@ -317,7 +320,7 @@
   padding: 0 5%;
   width: 24vw;
 
-  @media only screen and (max-width: 930px) {
+  @media (max-width: 930px) {
     width: 72vw;
   }
 }
