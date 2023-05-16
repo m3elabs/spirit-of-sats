@@ -303,17 +303,19 @@
 }
 
 .inputBoxHints button {
-  outline: none;
-  border: none;
-  height: 6vh;
-  background: rgba(145, 158, 171, 0.16);
-  border-radius: 8px;
-  color: white;
-  padding: 0 5%;
-  max-width: 24vw;
 
-  @media (max-width: 930px) {
-    max-width: 72vw !important;
+  max-width: 72vw !important;
+  
+
+  @media (min-width: 930px) {
+    outline: none;
+    border: none;
+    height: 6vh;
+    background: rgba(145, 158, 171, 0.16);
+    border-radius: 8px;
+    color: white;
+    padding: 0 5%;
+    max-width: 24vw;
   }
 }
 
