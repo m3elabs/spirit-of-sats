@@ -15,6 +15,19 @@ export function middleware(request) {
     }
  
   }
+
+
+  if (request.url === "https://spirit-0f-satoshi.vercel.app/" && token.value !== "" && token.value !== undefined ) {
+    return NextResponse.redirect(new URL("/chat", request.url));
+  }
+  if (request.url === "https://spirit-0f-satoshi.vercel.app/chat") {
+    if (token.value === "" || token.value === undefined) {
+      return NextResponse.redirect(new URL("/", request.url));
+    } else {
+        return NextResponse.next();
+    }
+ 
+  }
 }
 
 // See "Matching Paths" below to learn more
