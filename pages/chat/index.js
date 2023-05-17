@@ -532,7 +532,7 @@ export default function Chat() {
               <img
                 alt="menu"
                 src="/hamburgermenu.svg"
-                width="100%"
+                width="70%"
                 height="100%"
               />
             </span>
