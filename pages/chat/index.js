@@ -157,12 +157,9 @@ const Popup =  ({ isOpen, onClose, id }) =>  {
           return console.log("paid!");
         } else {
           setTimeout(async () => {
-            tryCall(seconds - 1);
-            document.getElementById("countdown").innerHTML = (
-              seconds - 1
-            ).toString();
+            tryCall(seconds - 5);
             await confirmationCall(id, auth.toString());
-          }, 1000);
+          }, 5000);
         }
       }
       tryCall(30);
