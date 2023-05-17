@@ -208,7 +208,7 @@ const Popup =  ({ isOpen, onClose, id }) =>  {
             </button>
   
             <p
-              style={{ fontSize: "25px", fontWeight: "bold", color: "white" }}
+             className={styles.expiration}
             > Invoice expires 10 minutes after generation</p>
      
               <>

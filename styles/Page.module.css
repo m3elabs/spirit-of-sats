@@ -115,6 +115,16 @@
   flex-direction: column;
 }
 
+.expiration {
+  fontsize: "14px";
+  fontweight: "bold";
+  color: "white";
+  @media (max-width: 930px) {
+    fontsize: 25px;
+    fontweight: bold;
+  }
+}
+
 .mobileMenu {
   position: absolute;
   left: 0;
@@ -129,8 +139,6 @@
   z-index: 3;
   justify-content: space-between;
 }
-
-
 
 .mobileMenuClosed {
   position: absolute;
@@ -400,8 +408,12 @@
   border-radius: 8px;
   color: white;
   padding: 0 5%;
-  width: 20%;
+  width: fit-content;
   margin-bottom: 1%;
+
+  @media (min-width: 931px) {
+    width: 20%;
+  }
 }
 
 .creditOptionsSelected {
