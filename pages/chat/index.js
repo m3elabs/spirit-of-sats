@@ -386,8 +386,23 @@ export default function Chat() {
       message: "",
       voiceUrl: "",
     };
+
+    if(user.credits === 0) {
+      const error = {
+        error: true,
+        isFromMentor: false,
+        isFromUser: false,
+        text: "You don't have enough credits, add more by clicking the profile tab in the menu.",
+        createdAt: new Date(),
+        type: "",
+        message: "",
+        voiceUrl: "",
+      }; 
+      setAllMessages([...allMessages, error]);
+      return;
+    } 
     setAllMessages([...allMessages, userInput, loading]);
-      const auth = getCookie("token");
+      const auth = getCookie("token");  
      await axios({
         method: "post",
         url: "https://api-dev.spiritofsatoshi.ai/v1/chat",
@@ -402,6 +417,8 @@ export default function Chat() {
       
         if (response.status === 200) {
          const newMessage = await getMessages();
+         const user = await getUser()
+         setUser(user)
          setAllMessages(newMessage);
         }
       }).catch((error) => {
@@ -660,6 +677,17 @@ export default function Chat() {
                       <img alt="userAvatar" src="/Avatar.png" />
                       {message.text}
                     </span>
+                  </div>
+                );
+              }
+              if (message.error) {
+                return (
+                  <div key={index} className={styles.errorMessage}>
+                  
+                      <img alt="satoshiAvatar"  src="/satoshiAvatar.svg" />
+                      <p style={{background:'rgba(255, 0, 0, 0.6)', border: '1px solid rgba(255, 0, 0, 1)', padding:'3%', borderRadius: '8px'}}>{message.text}</p>
+                      
+                  
                   </div>
                 );
               }

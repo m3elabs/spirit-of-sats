@@ -297,6 +297,24 @@
   }
 }
 
+.errorMessage {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 87%;
+  margin: 3% 5%;
+  padding: 3% 0;
+  line-height: 1.5;
+  gap: 0 3%;
+  color: white;
+  overflow-x: none;
+  @media only screen and (min-width: 930px) {
+    width: 60%;
+    margin: auto;
+    
+  }
+}
+
 .playButton {
   outline: none;
   border: none;
