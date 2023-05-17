@@ -456,12 +456,67 @@ export default function Chat() {
     
       <div className={inter.className}>
        
-        <div className={styles.chat}>
+        <div className={styles.chat} >
           <Popup
             isOpen={isOpen}
             onClose={handleClosePopup}
             id=""
           />
+          <div className={openMenu === true ? styles.mobileMenu : styles.mobileMenuClosed}>
+          <span className={styles.mobileAccountInfo}>
+          <div className={styles.accountInfo}>
+                <img
+                  src="/Avatar.png"
+                  style={{ marginRight: "7%" }}
+                  alt="avatar"
+                />
+                <span className={styles.creditColumn}>
+                  <p
+                    style={{
+                      marginBottom: "2%",
+                      marginTop: "0px",
+                      color: "white",
+                      fontSize: "11px",
+                    }}
+                    key={user?.fullName}
+                  >
+                    {user?.fullName}
+                  </p>
+                  <span className={styles.creditRow}>
+                    <img alt="wallet" src="/wallet.svg" />
+                    <p
+                      key={user?.credits}
+                      style={{ margin: "0px", fontSize: "11px" }}
+                    >
+                      {user?.credits} credits left
+                    </p>
+                  </span>
+                </span>
+              </div>
+              </span>
+             
+                <span className={styles.menuTabs}>
+                <button
+                  onClick={() => handleOpenPopup()}
+                  className={styles.creditsButton}
+                >
+                  Add Credits
+                </button>
+                  <div>
+                    <img alt="profile" src="/account.svg" />
+                    My Profile
+                  </div>
+                  <div>
+                    <img alt="updates" src="/faqs.svg" />
+                    Updates & FAQs
+                  </div>
+                  <div>
+                    <img alt="logout" src="/logout.svg" />
+                    Logout
+                  </div>
+                </span>
+              
+          </div>
           <div className={styles.detailBar}>
             <span className={styles.placeholder1}></span>
             <span
@@ -479,6 +534,7 @@ export default function Chat() {
               <img
                 alt="logo2"
                 src="/spiritLogo2.svg"
+                style={{zIndex:3}}
               />
             </span>
             <span className={styles.placeholder2}></span>
