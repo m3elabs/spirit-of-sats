@@ -3,8 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { getUser, getMessages } from "../../hooks";
 import QRCode from "qrcode.react";
 import axios from "axios";
-import { parseCookies } from 'cookies-next/dist/server';
-import { getCookie, setCookie} from "cookies-next";
+import { getCookie, deleteCookie} from "cookies-next";
 import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 
@@ -430,7 +429,7 @@ export default function Chat() {
   }
 
   const handleLogout = () => {
-    setCookie('token', '', { expires: new Date(0) });
+    deleteCookie('token');
     router.push("/")
   }
   
@@ -482,13 +481,14 @@ export default function Chat() {
     // recognition.onend = function(event:any) {
     //    document.getElementById("transcript")!.innerHTML += '-end-' ;
     // }
-    useEffect(() => {
-      const cookies = parseCookies();
-      const expiration = cookies['token'] ? new Date(cookies['token'].expires) : undefined
-      if (expiration > new Date.now() || getCookie('token') !== '') {
-        router.push('/')
-      }
-    })
+    // useEffect(() => {
+    //  const token =  getCookie('token')
+    //  console.log(token)
+    //   // const expiration = cookies['token'] ? new Date(cookies['token'].expires) : undefined
+    //   if (token > Date.now() || token === '' || token === undefined) {
+    //     router.push('/')
+    //   }
+    // })
 
 
     return (

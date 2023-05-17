@@ -3,15 +3,13 @@ import { useState, useEffect, useRef } from "react";
 import QRCode from "qrcode.react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { parseCookies } from 'cookies-next/dist/server';
-import { getCookie, setCookie } from "cookies-next";
+import { getCookie, setCookie, hasCookie } from "cookies-next";
 import { Inter } from "next/font/google";
 
 const inter = Inter({
   weight: ["100", "200", "300", "700"],
   subsets: ["latin"],
 });
-
 
 function Lightning({ address }) {
   return (
@@ -64,12 +62,16 @@ export default function Home() {
   useEffect(() => {}, []);
 
   useEffect(() => {
-    const cookies = parseCookies();
-    const expiration = cookies['token'] ? new Date(cookies['token'].expires) : undefined
-    if (expiration !== undefined && getCookie('token') !== '') {
-      router.push('/chat')
+    const check = hasCookie("token");
+    if (check == true) {
+      const cookie = getCookie("token");
+      console.log(cookie);
     }
-  })
+    // const expiration = cookies['token'] ? new Date(cookies['token'].expires) : undefined
+    // if (expiration !== undefined && getCookie('token') !== '') {
+    //   router.push('/chat')
+    // }
+  });
 
   const fetchData = async () => {
     try {
@@ -121,7 +123,7 @@ export default function Home() {
       const oneYearFromNow = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
       if (response.data["token"]) {
         setCookie("token", response.data["token"], { expires: oneYearFromNow });
-        return router.push("/chat");
+          return router.push("/chat");
       }
       return;
     } catch (error) {
@@ -130,10 +132,9 @@ export default function Home() {
   };
 
   return (
-  <>
-   <div className={styles.bg}> </div>
+    <>
+      <div className={styles.bg}> </div>
       <main className={styles.main}>
- 
         {registerState === "default" ? (
           <span className={styles.titleModal}>
             <img className={styles.logo} alt="logo" src="/spiritLogo.svg" />
@@ -244,13 +245,7 @@ export default function Home() {
             </span>
           </>
         )}
-
-       
       </main>
-      </>
-
-   
-
-
+    </>
   );
 }
