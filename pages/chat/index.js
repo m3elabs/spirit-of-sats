@@ -219,7 +219,7 @@ const Popup =  ({ isOpen, onClose, id }) =>  {
                 onClick={() => copyAdd(address)}
               />
               <p>Click to copy</p>
-              <p style={{margin:'3% auto'}}>
+              <p className={styles.instructions}>
                 Scan this Lightning invoice to add {creditPack} Replies to your
                 account and continue the conversation with Satoshi.
               </p>

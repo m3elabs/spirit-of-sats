@@ -416,6 +416,14 @@
   }
 }
 
+.instructions {
+  font-size: 14px;
+
+  @media (min-width: 931px) {
+    font-size: 20px;
+  }
+}
+
 .creditOptionsSelected {
   outline: none;
   border: 1px solid rgba(0, 255, 65, 1);
