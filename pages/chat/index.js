@@ -13,7 +13,7 @@ const inter = Inter({
 
 
 
-function Popup ({ isOpen, onClose, id }) {
+const Popup =  ({ isOpen, onClose, id }) =>  {
 
   const [confirmed, setConfirmed] = useState(false);
   const [creditPack, setCreditPack] = useState("");
@@ -21,10 +21,80 @@ function Popup ({ isOpen, onClose, id }) {
   const [selected, setSelected] = useState(false);
   const [address, setAddress] = useState("");
 
+
+  const fetchCreditPackData = async (amount) => {
+    setRefresh(false);
+    try {
+      const response = await axios({
+        method: "get",
+        url: "https://api-dev.spiritofsatoshi.ai/v1/credits",
+      });
+      if (response.data) {
+        const auth = getCookie("token");
+        if (amount == "20") {
+          const uri = `https://api-dev.spiritofsatoshi.ai/v1/credits/${response["data"][0]["id"]}/purchase`;
+          setCreditPack("20");
+          const purchase = await axios({
+            method: "post",
+            url: uri,
+            headers: {
+              Authorization: `Bearer ${auth}`,
+            },
+          });
+          setAddress(purchase.data["lnAddress"]);
+          setSelected(true);
+          await checkPurchase(purchase.data["purchaseId"]);
+        }
+
+        if (amount === "100") {
+          const uri = `https://api-dev.spiritofsatoshi.ai/v1/credits/${response["data"][1]["id"]}/purchase`;
+          setCreditPack("100");
+          const purchase = await axios({
+            method: "post",
+            url: uri,
+            headers: {
+              Authorization: `Bearer ${auth}`,
+            },
+          });
+          setAddress(purchase.data["lnAddress"]);
+          setSelected(true);
+          await checkPurchase(purchase.data["purchaseId"]);
+        }
+
+        if (amount === "300") {
+          const uri = `https://api-dev.spiritofsatoshi.ai/v1/credits/${response["data"][2]["id"]}/purchase`;
+          setCreditPack("300");
+          const purchase = await axios({
+            method: "post",
+            url: uri,
+            headers: {
+              Authorization: `Bearer ${auth}`,
+            },
+          });
+          setAddress(purchase.data["lnAddress"]);
+          setSelected(true);
+          await checkPurchase(purchase.data["purchaseId"]);
+        }
+      }
+      return;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+
+
+  useEffect(() => {
+    fetchCreditPackData('100')
+  },[])
+
   // function ConfirmPopup({ address, isOpen, onClose, id }: popUpParams) {
     if (!isOpen) {
       return null;
     }
+
+
+    
 
   //   return (
   //     <div className={styles.overlay}>
@@ -98,65 +168,7 @@ function Popup ({ isOpen, onClose, id }) {
       tryCall(30);
     };
 
-    const fetchCreditPackData = async (amount) => {
-      setRefresh(false);
-      try {
-        const response = await axios({
-          method: "get",
-          url: "https://api-dev.spiritofsatoshi.ai/v1/credits",
-        });
-        if (response.data) {
-          const auth = getCookie("token");
-          if (amount == "20") {
-            const uri = `https://api-dev.spiritofsatoshi.ai/v1/credits/${response["data"][0]["id"]}/purchase`;
-            setCreditPack("20");
-            const purchase = await axios({
-              method: "post",
-              url: uri,
-              headers: {
-                Authorization: `Bearer ${auth}`,
-              },
-            });
-            setAddress(purchase.data["lnAddress"]);
-            setSelected(true);
-            await checkPurchase(purchase.data["purchaseId"]);
-          }
-
-          if (amount === "100") {
-            const uri = `https://api-dev.spiritofsatoshi.ai/v1/credits/${response["data"][1]["id"]}/purchase`;
-            setCreditPack("100");
-            const purchase = await axios({
-              method: "post",
-              url: uri,
-              headers: {
-                Authorization: `Bearer ${auth}`,
-              },
-            });
-            setAddress(purchase.data["lnAddress"]);
-            setSelected(true);
-            await checkPurchase(purchase.data["purchaseId"]);
-          }
-
-          if (amount === "300") {
-            const uri = `https://api-dev.spiritofsatoshi.ai/v1/credits/${response["data"][2]["id"]}/purchase`;
-            setCreditPack("300");
-            const purchase = await axios({
-              method: "post",
-              url: uri,
-              headers: {
-                Authorization: `Bearer ${auth}`,
-              },
-            });
-            setAddress(purchase.data["lnAddress"]);
-            setSelected(true);
-            await checkPurchase(purchase.data["purchaseId"]);
-          }
-        }
-        return;
-      } catch (error) {
-        console.log(error);
-      }
-    };
+   
 
     const copyAdd = (address) => {
       navigator.clipboard
@@ -168,7 +180,6 @@ function Popup ({ isOpen, onClose, id }) {
           console.error("Error copying text to clipboard:", error);
         });
     };
-
 
   
     return confirmed === false ? (
@@ -189,7 +200,7 @@ function Popup ({ isOpen, onClose, id }) {
         >
           <img alt="close" height="100%" src="/x.svg" />
         </button>
-          {refresh === true ? (
+       
             <button
               onClick={async () => {
                 await fetchCreditPackData(creditPack);
@@ -198,12 +209,11 @@ function Popup ({ isOpen, onClose, id }) {
             >
               Refresh?
             </button>
-          ) : (
+  
             <p
-              id="countdown"
               style={{ fontSize: "25px", fontWeight: "bold", color: "white" }}
-            ></p>
-          )}
+            > Invoice expires 10 minutes after generation</p>
+     
               <>
               <QRCode
                 value={address}
@@ -212,7 +222,7 @@ function Popup ({ isOpen, onClose, id }) {
                 onClick={() => copyAdd(address)}
               />
               <p>Click to copy</p>
-              <p>
+              <p style={{margin:'3% auto'}}>
                 Scan this Lightning invoice to add {creditPack} Replies to your
                 account and continue the conversation with Satoshi.
               </p>
