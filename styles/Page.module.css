@@ -104,7 +104,7 @@
 }
 
 .chat {
-  position:relative;
+  position: relative;
   background: rgba(22, 28, 36, 1);
   height: 100vh;
   max-height: -webkit-fill-available;
@@ -130,7 +130,19 @@
   justify-content: space-between;
 }
 
+.mobileMenu div {
+  display: none;
+  @media (min-width: 80vw) {
+    display: flex;
+  }
+}
 
+.mobileMenu span {
+  display: none !important;
+  @media (min-width: 80vw) {
+    display: flex;
+  }
+}
 
 .mobileMenuClosed {
   position: absolute;
@@ -145,7 +157,7 @@
 }
 
 .mobileMenuClosed div {
-display: none !important;
+  display: none !important;
 }
 
 .mobileMenuClosed span {
@@ -175,6 +187,7 @@ display: none !important;
   border-radius: 8px;
   padding: 4% 0;
   margin-bottom: 2%;
+  color: black;
 }
 
 .accountBox {
@@ -211,7 +224,7 @@ display: none !important;
 }
 
 .hamburgermenu {
-  z-index:5;
+  z-index: 5;
   @media only screen and (max-width: 930px) {
     display: flex;
     justify-content: center;
@@ -492,7 +505,7 @@ display: none !important;
 }
 
 .mobileAccountInfo {
-  background-color:rgba(42, 54, 68, 1);
+  background-color: rgba(42, 54, 68, 1);
   border-radius: 9px;
   padding: 4% 2%;
   width: 80%;
