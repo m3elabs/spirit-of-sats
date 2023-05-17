@@ -691,7 +691,7 @@ export default function Chat() {
                   <div key={index} className={styles.userMessage}>
                     <span>
                       <img alt="userAvatar" src="/Avatar.png" />
-                      {message.text}
+                      <p id="message">{message.text}</p>
                     </span>
                   </div>
                 );
