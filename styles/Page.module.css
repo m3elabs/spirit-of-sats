@@ -255,15 +255,15 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 60%;
-  margin: auto;
+  width: 87%;
+  margin: 3% 5%;
   padding: 3% 0;
   line-height: 1.5;
   gap: 0 3%;
   overflow-x: none;
-  @media only screen and (max-width: 930px) {
-    width: 87%;
-    margin: 3% 5%;
+  @media only screen and (min-width: 930px) {
+    width: 60%;
+    margin: auto;
   }
 }
 
@@ -285,14 +285,15 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 60%;
-  margin: auto;
+  width: 87%;
+  margin: 3% 5%;
   padding: 3% 0;
   line-height: 1.5;
   gap: 0 3%;
-  @media only screen and (max-width: 930px) {
-    width: 90%;
-    margin: 3% 5%;
+  overflow-x: none;
+  @media only screen and (min-width: 930px) {
+    width: 60%;
+    margin: auto;
   }
 }
 
