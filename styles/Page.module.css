@@ -347,7 +347,12 @@
   overflow-y: hidden;
   white-space: nowrap;
   height: 6vh;
-  width: 100%;
+  width: 95%;
+  margin:0 3%;
+  @media (min-width: 931px) {
+    justify-content:center;
+  }
+ 
 }
 
 .inputBoxHints button {
@@ -746,6 +751,7 @@
 .footerTag {
   font-size: 10px;
   width: 80%;
+  text-align: center;
   @media (min-width: 931px) {
     width: 100%;
   }
