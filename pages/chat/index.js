@@ -387,9 +387,8 @@ export default function Chat() {
       voiceUrl: "",
     };
     setAllMessages([...allMessages, userInput, loading]);
-    try {
       const auth = getCookie("token");
-      const response = await axios({
+     await axios({
         method: "post",
         url: "https://api-dev.spiritofsatoshi.ai/v1/chat",
         headers: {
@@ -399,16 +398,16 @@ export default function Chat() {
         data: {
           text: message,
         },
-      });
-      if (response.status === 200) {
-        getUser();
-        getMessages();
-        return;
-      }
-    } catch (error) {
+      }).then(async (response) => {
+      
+        if (response.status === 200) {
+         const newMessage = await getMessages();
+         setAllMessages(newMessage);
+        }
+      }).catch((error) => {
       console.log(error);
-    }
-  };
+    })
+  }
   
 
 
