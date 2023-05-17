@@ -217,18 +217,18 @@
   display: none;
 
   @media (min-width: 931px) {
-    width: 15%;
+    display:flex;
+    width: 15% !important;
   }
 }
 
 .hamburgermenu {
   z-index: 5;
-  @media only screen and (max-width: 930px) {
     display: flex;
     justify-content: center;
     width: 15%;
     height: 100%;
-  }
+
   @media (min-width: 931px) {
     display: none;
   }
