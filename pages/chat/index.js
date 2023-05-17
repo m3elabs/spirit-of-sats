@@ -172,7 +172,7 @@ function Popup ({ isOpen, onClose, id }) {
 
   
     return confirmed === false ? (
-      <div className={styles.overlay} onClick={() => onClose()}>
+      <div className={styles.overlay}>
       
         <div className={styles.addCreditsPopup}>
         <button
