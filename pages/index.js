@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import QRCode from "qrcode.react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { getCookie, setCookie } from "cookies-next";
+import { getCookie, setCookie, parseCookies } from "cookies-next";
 import { Inter } from "next/font/google";
 
 const inter = Inter({
