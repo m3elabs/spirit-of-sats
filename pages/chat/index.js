@@ -475,7 +475,7 @@ export default function Chat() {
           <span className={styles.mobileAccountInfo}>
             <div className={styles.accountInfo}>
               <img
-                src="/Avatar.png"
+                src="/avatar.svg"
                 style={{ marginRight: "7%" }}
                 alt="avatar"
               />
@@ -602,7 +602,7 @@ export default function Chat() {
             </span>
             <div className={styles.accountInfo}>
               <img
-                src="/Avatar.png"
+                src="/avatar.svg"
                 style={{ marginRight: "7%" }}
                 alt="avatar"
               />
@@ -651,7 +651,7 @@ export default function Chat() {
               return (
                 <div key={index} className={styles.satoshiMessage} style={{background:'rgba(22, 28, 36, 1)'}}>
                   <span>
-                    <img alt="Avatar" src="/Avatar.svg" />
+                    <img alt="Avatar" src="/avatar.svg" />
                     <p id="message">{message.text}</p>
                    
                   </span>
