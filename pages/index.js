@@ -62,6 +62,14 @@ export default function Home() {
 
   useEffect(() => {}, []);
 
+  useEffect(() => {
+    const cookies = parseCookies();
+    const expiration = cookies['token'] ? new Date(cookies['token'].expires) : undefined
+    if (expiration !== undefined && getCookie('token') !== '') {
+      router.push('/chat')
+    }
+  })
+
   const fetchData = async () => {
     try {
       const response = await axios.get(

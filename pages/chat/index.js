@@ -3,8 +3,9 @@ import { useState, useEffect, useRef } from "react";
 import { getUser, getMessages } from "../../hooks";
 import QRCode from "qrcode.react";
 import axios from "axios";
-import { getCookie } from "cookies-next";
+import { getCookie, setCookie, parseCookies } from "cookies-next";
 import { Inter } from "next/font/google";
+import { useRouter } from "next/router";
 
 const inter = Inter({
   weight: ["100", "200", "300", "700"],
@@ -356,6 +357,7 @@ export default function Chat() {
   const [allMessages, setAllMessages] = useState([]);
   const [textInput, setTextInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter()
 
   function handleOpenPopup() {
     setIsOpen(true);
@@ -425,6 +427,11 @@ export default function Chat() {
       console.log(error);
     })
   }
+
+  const handleLogout = () => {
+    setCookie('token', '', { expires: new Date(0) });
+    router.push("/")
+  }
   
 
 
@@ -474,6 +481,14 @@ export default function Chat() {
     // recognition.onend = function(event:any) {
     //    document.getElementById("transcript")!.innerHTML += '-end-' ;
     // }
+    useEffect(() => {
+      const cookies = parseCookies();
+      const expiration = cookies['token'] ? new Date(cookies['token'].expires) : undefined
+      if (expiration > new Date.now() || getCookie('token') !== '') {
+        router.push('/')
+      }
+    })
+
 
     return (
     
@@ -525,18 +540,18 @@ export default function Chat() {
                 >
                   Add Credits
                 </button>
-                  <div>
+                  <button>
                     <img alt="profile" src="/account.svg" />
                     My Profile
-                  </div>
-                  <div>
+                  </button>
+                  <button>
                     <img alt="updates" src="/faqs.svg" />
                     Updates & FAQs
-                  </div>
-                  <div>
+                  </button>
+                  <button onClick={() => handleLogout}>
                     <img alt="logout" src="/logout.svg" />
                     Logout
-                  </div>
+                  </button>
                 </span>
               
           </div>
@@ -605,18 +620,18 @@ export default function Chat() {
 
                 <span className={styles.divider}></span>
                 <span className={styles.menuTabs}>
-                  <div>
+                  <button>
                     <img alt="profile" src="/account.svg" />
                     My Profile
-                  </div>
-                  <div>
+                    </button>
+                    <button>
                     <img alt="updates" src="/faqs.svg" />
                     Updates & FAQs
-                  </div>
-                  <div>
+                    </button>
+                    <button onClick={() => handleLogout()}>
                     <img alt="logout" src="/logout.svg" />
                     Logout
-                  </div>
+                  </button>
                 </span>
               </span>
               <div className={styles.accountInfo}>

@@ -216,18 +216,18 @@
   display: none;
 
   @media (min-width: 931px) {
-    display:flex;
+    display: flex;
     width: 15% !important;
   }
 }
 
 .hamburgermenu {
   z-index: 5;
-    display: flex;
-    justify-content: center;
-    width: 15%;
-    height: 100%;
-    margin-left: 3%;
+  display: flex;
+  justify-content: center;
+  width: 15%;
+  height: 100%;
+  margin-left: 3%;
 
   @media (min-width: 931px) {
     display: none;
@@ -311,7 +311,6 @@
   @media only screen and (min-width: 930px) {
     width: 60%;
     margin: auto;
-    
   }
 }
 
@@ -367,11 +366,10 @@
   white-space: nowrap;
   height: 6vh;
   width: 95%;
-  margin:0 3%;
+  margin: 0 3%;
   @media (min-width: 931px) {
-    justify-content:center;
+    justify-content: center;
   }
- 
 }
 
 .inputBoxHints button {
@@ -475,10 +473,16 @@
   padding: 5%;
 }
 
-.menuTabs div {
+.menuTabs button {
   display: flex;
   flex-direction: row;
-  gap: 0 9%;
+  align-items: center;
+  color: white;
+  gap: 0 5%;
+  z-index:10;
+  outline: none;
+  border: none;
+  background: transparent;
 }
 
 .inputBox {
