@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import { getUser, getMessages } from "../../hooks";
 import QRCode from "qrcode.react";
 import axios from "axios";
-import { getCookie, setCookie, parseCookies } from "cookies-next";
+import { parseCookies } from 'cookies-next/dist/server';
+import { getCookie, setCookie} from "cookies-next";
 import { Inter } from "next/font/google";
 import { useRouter } from "next/router";
 
