@@ -649,7 +649,7 @@ export default function Chat() {
             }
             if (message.isFromUser) {
               return (
-                <div key={index} className={styles.userMessage}>
+                <div key={index} className={styles.satoshiMessage}>
                   <span>
                     <img alt="userAvatar" src="/Avatar.png" />
                     <p>{message.text}</p>
