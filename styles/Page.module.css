@@ -132,14 +132,14 @@
 
 .mobileMenu div {
   display: none;
-  @media (min-width: 80vw) {
+  @media (min-width: 70vw) {
     display: flex;
   }
 }
 
 .mobileMenu span {
   display: none !important;
-  @media (min-width: 80vw) {
+  @media (min-width: 70vw) {
     display: flex;
   }
 }
