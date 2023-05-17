@@ -281,7 +281,8 @@
   justify-content: center;
 }
 
-.userMessage span {
+
+.userMessage  {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -308,7 +309,7 @@
   gap: 0 3%;
   color: white;
   overflow-x: none;
-  @media (min-width: 930px) {
+  @media (min-width: 931px) {
     width: 60%;
     margin: auto;
   }
