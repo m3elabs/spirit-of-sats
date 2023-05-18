@@ -30,15 +30,20 @@ function Lightning({ address }) {
         <br />
         Check out{" "}
         <a
-          style={{ fontWeight: "bold", color: "white", opacity: "0.4" }}
+          style={{ fontWeight: "bold",color: "rgba(0, 255, 65, 1)", opacity: "0.4" }}
           href="google.com"
         >
-          Phoenix
+          Phoenix,{" "}
         </a>
-      
+        <a
+          style={{ fontWeight: "bold", color: "rgba(0, 255, 65, 1)", opacity: "0.4" }}
+          href="google.com"
+        >
+          BitKit
+        </a>{" "}
         or{" "}
         <a
-          style={{ fontWeight: "bold", color: "white", opacity: "0.4" }}
+          style={{ fontWeight: "bold", color: "rgba(0, 255, 65, 1)", opacity: "0.4" }}
           href="google.com"
         >
           Wallet of Satoshi
@@ -458,7 +463,7 @@ export default function Home() {
                   onClick={(event) => verifyOTP(event)}
                   className={styles.registerButton}
                 >
-                  Submit
+                  Sumbit
                 </button>
               </div>
               <span
