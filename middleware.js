@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 // This function can be marked `async` if using `await` inside
 export function middleware(request) {
   const token = request.cookies.get('token')
-  console.log(request.url)
+  console.log(token)
 //   if (request.url === "http://localhost:3000/" && token?.value !== "" && token?.value !== undefined ) {
 //     return NextResponse.redirect(new URL("/chat", request.url));
 //   }
@@ -21,7 +21,7 @@ export function middleware(request) {
     return NextResponse.redirect(new URL("/chat", request.url));
   }
   if (request.url === "https://spirit-0f-satoshi.vercel.app/chat") {
-    if (token.value === "" || token.value === undefined) {
+    if (token?.value === "" || token?.value === undefined) {
       return NextResponse.redirect(new URL("/", request.url));
     } else {
         return NextResponse.next();
@@ -30,5 +30,5 @@ export function middleware(request) {
   }
 }
 
-// See "Matching Paths" below to learn more
+export const config = { matcher: "/((?!.*\\.).*)" };
 
