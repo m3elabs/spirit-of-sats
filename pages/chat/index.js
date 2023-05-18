@@ -507,19 +507,19 @@ export default function Chat() {
           <span className={styles.menuTabs}>
             <button
               onClick={() => handleOpenPopup()}
-              className={styles.creditsButton}
+              className={styles.creditsButtonMobile}
             >
               Add Credits
             </button>
-            <button>
+            <button style={{ color: " white", background: 'transparent'}}>
               <img alt="profile" src="/account.svg" />
               My Profile
             </button>
-            <button>
+            {/* <button>
               <img alt="updates" src="/faqs.svg" />
               Updates & FAQs
-            </button>
-            <button onClick={() => handleLogout}>
+            </button> */}
+            <button onClick={() => handleLogout} style={{ color: " white", background: 'transparent'}}>
               <img alt="logout" src="/logout.svg" />
               Logout
             </button>
@@ -590,10 +590,10 @@ export default function Chat() {
                   <img alt="profile" src="/account.svg" />
                   My Profile
                 </button>
-                <button>
+                {/* <button>
                   <img alt="updates" src="/faqs.svg" />
                   Updates & FAQs
-                </button>
+                </button> */}
                 <button onClick={() => handleLogout()}>
                   <img alt="logout" src="/logout.svg" />
                   Logout
@@ -649,11 +649,14 @@ export default function Chat() {
             }
             if (message.isFromUser) {
               return (
-                <div key={index} className={styles.satoshiMessage} style={{background:'rgba(22, 28, 36, 1)'}}>
+                <div
+                  key={index}
+                  className={styles.satoshiMessage}
+                  style={{ background: "rgba(22, 28, 36, 1)" }}
+                >
                   <span>
                     <img alt="Avatar" src="/avatar.svg" />
                     <p id="message">{message.text}</p>
-                   
                   </span>
                 </div>
               );
