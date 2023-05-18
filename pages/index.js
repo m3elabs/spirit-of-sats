@@ -33,14 +33,9 @@ function Lightning({ address }) {
           style={{ fontWeight: "bold", color: "white", opacity: "0.4" }}
           href="google.com"
         >
-          Phoenix,{" "}
+          Phoenix
         </a>
-        <a
-          style={{ fontWeight: "bold", color: "white", opacity: "0.4" }}
-          href="google.com"
-        >
-          Muun
-        </a>{" "}
+      
         or{" "}
         <a
           style={{ fontWeight: "bold", color: "white", opacity: "0.4" }}
@@ -221,6 +216,12 @@ export default function Home() {
                 className={styles.enterButton}
               >
                 Enter
+              </button>
+              <button
+                onClick={() => setRegisterState("login")}
+                className={styles.loginButton}
+              >
+               Sign Up
               </button>
               <button
                 onClick={() => setRegisterState("login")}
@@ -457,7 +458,7 @@ export default function Home() {
                   onClick={(event) => verifyOTP(event)}
                   className={styles.registerButton}
                 >
-                  Sumbit
+                  Submit
                 </button>
               </div>
               <span
