@@ -759,10 +759,12 @@
   color: white;
   font-weight: bold;
   background: #212b36;
-  padding: 2%;
+  padding: 5%;
   border-radius: 8px;
-  width: 60%;
+  height: 50vh;
+  width: 80%;
   line-height: 28px;
+  overflow-y: auto;
 }
 
 .bg {

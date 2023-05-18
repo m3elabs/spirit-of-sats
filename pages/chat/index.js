@@ -305,7 +305,7 @@ const Mission = ({ isOpen, onClose, id }) => {
             border: "none",
             position: "absolute",
             top: "5%",
-            right: "2%",
+            right: "5%",
           }}
         >
           <img alt="close" height="100%" src="/x.svg" />
@@ -334,6 +334,7 @@ const Mission = ({ isOpen, onClose, id }) => {
               display: "-webkit-flex",
               alignItems: "center",
               color: "rgba(0, 255, 65, 1)",
+              marginRight: "5%"
             }}
           >
             <img src="/twitter.svg" />
@@ -372,7 +373,7 @@ const About = ({ isOpen, onClose, id }) => {
             border: "none",
             position: "absolute",
             top: "5%",
-            right: "2%",
+            right: "5%",
           }}
         >
           <img alt="close" height="100%" src="/x.svg" />
@@ -391,7 +392,7 @@ const About = ({ isOpen, onClose, id }) => {
           feedback will help me grow and develop.
         </p>
         <div
-          style={{ display: "-webkit-flex", alignItems: "center", gap: "0 3%" }}
+          style={{ display: "-webkit-flex", alignItems: "center", gap: "0 3%"}}
         >
           {" "}
           <a
@@ -400,6 +401,7 @@ const About = ({ isOpen, onClose, id }) => {
               display: "-webkit-flex",
               alignItems: "center",
               color: "rgba(0, 255, 65, 1)",
+              marginRight: "5%"
             }}
           >
             <img src="/twitter.svg" />
@@ -515,6 +517,8 @@ export default function Chat() {
   };
 
   const sendMessage = async (message) => {
+    const input = document.getElementById("transcript");
+    input.value = "";
     const userInput = {
       loading: true,
       isFromMentor: false,
@@ -937,18 +941,22 @@ export default function Chat() {
 
                   const input = document.getElementById("transcript");
                   const inputValue = input.value;
+                  sendMessage(inputValue);
                   input.value = "";
                   setTextInput("");
-                  sendMessage(inputValue);
+                 
                 }
               }}
               id="transcript"
-              value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
               className={styles.inputBox}
               placeholder="Type or speak message"
             />
-            <button onClick={() => sendMessage(textInput)}>
+            <button onClick={() => {
+              const input = document.getElementById("transcript");
+              const inputValue = input.value;
+              sendMessage(inputValue)
+            }}>
               <img alt="send" src="/send.svg" />
             </button>
           </div>
