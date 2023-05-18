@@ -369,9 +369,6 @@
   height: 6vh;
   width: 95%;
   margin: 0 3%;
-  @media (min-width: 931px) {
-    justify-content: center;
-  }
 }
 
 .inputBoxHints button {

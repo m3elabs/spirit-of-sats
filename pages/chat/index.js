@@ -457,6 +457,16 @@ export default function Chat() {
   const [isOpen, setIsOpen] = useState(false);
   const [missionOpen, setMissionOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const questions = [
+    "Hey Satoshi, tell me something about Bitcoin",
+    "Hey Satoshi, what's your thoughts on Nostr?",
+    "Hey Satoshi, what do you think about other cryptos?",
+    "Hey Satoshi, tell me what you can do.",
+    "Hey Satoshi, I want to learn about Bitcoin. Where should I start?",
+    "Hey Satoshi, what are some good Bitcoin books I should read?",
+    "Hey Satoshi, is there a second best crypto ?",
+    "Hey Satoshi, what's your Nostr nPub?",
+  ];
   const router = useRouter();
 
   function handleOpenPopup() {
@@ -475,6 +485,34 @@ export default function Chat() {
       setIsOpen(false);
     }
   }
+
+  const getAudio = async (id) => {
+    const audioFiles = document.getElementsByTagName("audio");
+
+    for (let index = 0; index < audioFiles.length; index++) {
+      audioFiles[index].pause();
+    }
+
+    const auth = getCookie("token");
+    const audio = document.getElementById(id);
+    await axios({
+      method: "get",
+      url: `https://api-dev.spiritofsatoshi.ai/v1/chat/message/${id}/audio`,
+      headers: {
+        Authorization: `Bearer ${auth}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then(async (response) => {
+        if (response.status === 200) {
+          audio.src = response.data["voiceUrl"];
+          audio.play();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const sendMessage = async (message) => {
     const userInput = {
@@ -806,9 +844,10 @@ export default function Chat() {
                       <button>
                         <img src="/thumbsDown.svg" />
                       </button>
-                      <button>
+                      <button onClick={() => getAudio(message.id)}>
                         <img src="/playButton.svg" />
                       </button>
+                      <audio id={message.id} src=""></audio>
                     </div>
                   </span>
                 </div>
@@ -873,38 +912,22 @@ export default function Chat() {
           }}
         >
           <span className={styles.inputBoxHints}>
-            <button
-              onClick={() => {
-                const input = document.getElementById("transcript");
-                input.value = "What inspired you to create Bitcoin?";
-              }}
-            >
-              {" "}
-              &quot;What inspired you to create Bitcoin?&quot;
-            </button>
-            <button
-              onClick={() => {
-                const input = document.getElementById("transcript");
-                input.value = "What inspired you to create Bitcoin?";
-              }}
-            >
-              {" "}
-              &quot;What inspired you to create Bitcoin?&quot;
-            </button>
-            <button
-              onClick={() => {
-                const input = document.getElementById("transcript");
-                input.value = "What inspired you to create Bitcoin?";
-              }}
-            >
-              {" "}
-              &quot;What inspired you to create Bitcoin?&quot;
-            </button>
+            {questions.map((option) => {
+              return <button
+                onClick={() => {
+                  const input = document.getElementById("transcript");
+                  input.value = "What inspired you to create Bitcoin?";
+                }}
+              >
+                {" "}
+                &quot;{option}&quot;
+              </button>;
+            })}
           </span>
           <div className={styles.inputContainer}>
-            <button onClick={() => recognition.start()}>
+            {/* <button onClick={() => recognition.start()}>
               <img alt="microphone" src="/microphone.svg" />
-            </button>
+            </button> */}
 
             <input
               type="text"
