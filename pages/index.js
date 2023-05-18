@@ -58,6 +58,7 @@ export default function Home() {
   const [qrCodeString, setQrCodeString] = useState("");
   const [selectedLogin, setSelectedLogin] = useState("email");
   const [invalid, setInvalid] = useState(false);
+  const [otpId, setOtpId] = useState("");
   const router = useRouter();
 
   useEffect(() => {}, []);
@@ -90,7 +91,7 @@ export default function Home() {
     }
   };
 
-  const verifyOTP = async () => {
+  const verifyOTP = async (e) => {
     e.preventDefault();
     try {
       const pin1 = document.getElementById("pin1").value;
@@ -101,26 +102,38 @@ export default function Home() {
       const pin6 = document.getElementById("pin6").value;
 
       const pin = pin1 + pin2 + pin3 + pin4 + pin5 + pin6;
-      const OTP = getCookie("optId");
+      console.log(pin.toString());
+      console.log(otpId.toString())
+      const id = otpId.toString();
+      const pinCode = pin.toString();
       const response = await axios.post(
         "https://api-dev.spiritofsatoshi.ai/v1/account/verify-otp",
         {
-          optId: OTP,
-          code: pin,
+          otpId: id,
+          code: pinCode
         }
       );
+
+      console.log(response.status)
       if (response.status === 200) {
         const oneYearFromNow = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
         setCookie("token", response.data["token"], {
           expires: oneYearFromNow,
         });
+        return router.push("/chat");
       }
-    } catch (error) {
       if (response.status === 400) {
         setInvalid(true);
+        return;
       }
+    } catch (error) {
+      if (error["response"]["status"] === 400) {
+        setInvalid(true);
+        return console.log(error);
+      }
+
+      return console.log(error);
     }
-    return console.log(error);
   };
 
   const emailSignUp = async (e) => {
@@ -132,15 +145,11 @@ export default function Home() {
         "https://api-dev.spiritofsatoshi.ai/v1/account/email/signup",
         {
           email: email,
-          fullName: username,
+          fullName: username
         }
       );
-      if (response.status === 200) {
-        const thirtyMinutes = new Date(Date.now() + 30 * 1000);
-        setCookie("otpId", response.data["otpId"], {
-          expires: thirtyMinutes,
-        });
-
+      if (response.data["otpId"]) {
+        setOtpId(response.data["otpId"])
         setRegisterState("verify");
         return;
       }
@@ -339,23 +348,105 @@ export default function Home() {
                   Enter the 6-digit pin you recieved via email
                 </p>
                 <span className={styles.verifyInputContainer}>
-                  <input id="pin1" className={styles.verifyInput} />
-                  <input id="pin2" className={styles.verifyInput} />
+                  <input
+                    onChange={(event) => {
+                      const pin2 = document?.getElementById("pin2");
+                      const inputValue = event.target.value;
+                      if (inputValue.length === 1) {
+                        pin2.focus();
+                      }
+                    }}
+                    maxLength="1"
+                    id="pin1"
+                    className={styles.verifyInput}
+                  />
+                  <input
+                    onChange={(event) => {
+                      const pin3 = document?.getElementById("pin3");
+                      const pin1 = document?.getElementById("pin1");
+                      const inputValue = event.target.value;
+                      if (inputValue.length === 1) {
+                        pin3.focus();
+                      }
+                      if (inputValue.length === 0) {
+                        pin1.focus();
+                      }
+                    }}
+                    maxLength="1"
+                    id="pin2"
+                    className={styles.verifyInput}
+                  />
 
-                  <input id="pin3" className={styles.verifyInput} />
+                  <input
+                    onChange={(event) => {
+                      const pin2 = document?.getElementById("pin2");
+                      const pin4 = document?.getElementById("pin4");
+                      const inputValue = event.target.value;
+                      if (inputValue.length === 1) {
+                        pin4.focus();
+                      }
+                      if (inputValue.length === 0) {
+                        pin2.focus();
+                      }
+                    }}
+                    maxLength="1"
+                    id="pin3"
+                    className={styles.verifyInput}
+                  />
 
-                  <input id="pin4" className={styles.verifyInput} />
-                  <input id="pin5" className={styles.verifyInput} />
+                  <input
+                    onChange={(event) => {
+                      const pin5 = document?.getElementById("pin5");
+                      const pin3 = document?.getElementById("pin3");
+                      const inputValue = event.target.value;
+                      if (inputValue.length === 1) {
+                        pin5.focus();
+                      }
+                      if (inputValue.length === 0) {
+                        pin3.focus();
+                      }
+                    }}
+                    maxLength="1"
+                    id="pin4"
+                    className={styles.verifyInput}
+                  />
+                  <input
+                    onChange={(event) => {
+                      const pin6 = document?.getElementById("pin6");
+                      const pin4 = document?.getElementById("pin4");
+                      const inputValue = event.target.value;
+                      if (inputValue.length === 1) {
+                        pin6.focus();
+                      }
+                      if (inputValue.length === 0) {
+                        pin4.focus();
+                      }
+                    }}
+                    maxLength="1"
+                    id="pin5"
+                    className={styles.verifyInput}
+                  />
 
-                  <input id="pin6" className={styles.verifyInput} />
+                  <input
+                    onChange={(event) => {
+                      const pin5 = document?.getElementById("pin5");
+                      const inputValue = event.target.value;
+                      if (inputValue.length === 0) {
+                        pin5.focus();
+                      }
+                    }}
+                    maxLength="1"
+                    id="pin6"
+                    className={styles.verifyInput}
+                  />
                 </span>
                 {invalid === true ? (
                   <span
                     style={{
+                    
                       color: "red",
                       textAlign: "center",
-                      maxWidth: "100%",
-                      margin: "0 auto 10% auto",
+                      margin: "0 auto 3vh auto",
                       fontSize: "11px",
                     }}
                   >
