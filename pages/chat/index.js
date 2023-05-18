@@ -19,8 +19,7 @@ const Popup = ({ isOpen, onClose, id }) => {
   const [selected, setSelected] = useState(false);
   const [address, setAddress] = useState("");
 
-  const router = useRouter()
-
+  const router = useRouter();
 
   const confirmationCall = async (id, auth) => {
     try {
@@ -40,8 +39,6 @@ const Popup = ({ isOpen, onClose, id }) => {
       console.log(error);
     }
   };
-
-
 
   const checkPurchase = async (id) => {
     const auth = getCookie("token");
@@ -63,8 +60,6 @@ const Popup = ({ isOpen, onClose, id }) => {
     }
     tryCall(600);
   };
-
-
 
   const fetchCreditPackData = async (amount) => {
     setRefresh(false);
@@ -132,8 +127,6 @@ const Popup = ({ isOpen, onClose, id }) => {
 
   // function ConfirmPopup({ address, isOpen, onClose, id }: popUpParams) {
 
-
-
   const copyAdd = (address) => {
     navigator.clipboard
       .writeText(address)
@@ -148,7 +141,6 @@ const Popup = ({ isOpen, onClose, id }) => {
   if (!isOpen) {
     return null;
   }
-
 
   return confirmed === false ? (
     <div className={styles.overlay}>
@@ -284,9 +276,14 @@ const Popup = ({ isOpen, onClose, id }) => {
         <img src="/checks.svg" />
         <p style={{ color: "rgba(0, 255, 65, 1)" }}>Payment Completed</p>
         <p>Don&apos;t lose your credits, set up an account!</p>
-        <button onClick={() => {
-          router.push('/')
-        }} className={styles.createAccount}>Create an account</button>
+        <button
+          onClick={() => {
+            router.push("/");
+          }}
+          className={styles.createAccount}
+        >
+          Create an account
+        </button>
       </div>
     </div>
   );
@@ -323,7 +320,7 @@ const Mission = ({ isOpen, onClose, id }) => {
           from first principles, that embody not only the entire Bitcoin
           knowledge-base, but more importantly, the Bitcoin ethos.<br></br>
           <br></br> With this tool, we are no longer just “all Satoshi” but
-          Satoshi is now "all of us". <br></br>  <br></br>
+          Satoshi is now "all of us". <br></br> <br></br>
           Join us on this journey. Give Satoshi feedback, spend some sats and
           connect with him below:
         </p>
@@ -649,23 +646,22 @@ export default function Chat() {
               My Profile
             </button> */}
 
-            <button style={{ background: "transparent", color: "white" }}>
+            <button
+              onClick={() => setAboutOpen(true)}
+              style={{ background: "transparent", color: "white" }}
+            >
               <img alt="updates" src="/faqs.svg" />
               About
             </button>
-            <button style={{ background: "transparent", color: "white" }}>
+            <button
+              onClick={() => setMissionOpen(true)}
+              style={{ background: "transparent", color: "white" }}
+            >
               <img alt="updates" src="/flag.svg" />
               Mission
             </button>
             <button
-              style={{ background: "transparent", color: "white" }}
               onClick={() => handleLogout()}
-            >
-              <img alt="logout" src="/logout.svg" />
-              Logout
-            </button>
-            <button
-              onClick={() => handleLogout}
               style={{ color: " white", background: "transparent" }}
             >
               <img alt="logout" src="/logout.svg" />
@@ -798,19 +794,21 @@ export default function Chat() {
             if (message.isFromMentor) {
               return (
                 <div key={index} className={styles.satoshiMessage}>
-                  <span >
+                  <span>
                     <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
-                    <p style={{margin:'0 3%'}}id="message">{message.text}</p>
+                    <p style={{ margin: "0 3%" }} id="message">
+                      {message.text}
+                    </p>
                     <div className={styles.interactiveButtons}>
-                    <button>
-                      <img src="/thumbsUp.svg" />
-                    </button>
-                    <button>
-                      <img src="/thumbsDown.svg" />
-                    </button>
-                    <button>
-                      <img src="/playButton.svg" />
-                    </button>
+                      <button>
+                        <img src="/thumbsUp.svg" />
+                      </button>
+                      <button>
+                        <img src="/thumbsDown.svg" />
+                      </button>
+                      <button>
+                        <img src="/playButton.svg" />
+                      </button>
                     </div>
                   </span>
                 </div>
@@ -825,7 +823,9 @@ export default function Chat() {
                 >
                   <span>
                     <img alt="Avatar" src="/avatar.svg" />
-                    <p style={{marginLeft:'3%'}} id="message">{message.text}</p>
+                    <p style={{ marginLeft: "3%" }} id="message">
+                      {message.text}
+                    </p>
                   </span>
                 </div>
               );
@@ -840,7 +840,7 @@ export default function Chat() {
                       border: "1px solid rgba(255, 0, 0, 1)",
                       padding: "3%",
                       borderRadius: "8px",
-                      marginLeft:'3%'
+                      marginLeft: "3%",
                     }}
                   >
                     {message.text}
@@ -854,9 +854,7 @@ export default function Chat() {
                   <span>
                     <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
 
-                    <p className={styles.thinkingText} 
-                   
-                  >Thinking...</p>
+                    <p className={styles.thinkingText}>Thinking...</p>
                   </span>
                 </div>
               );
