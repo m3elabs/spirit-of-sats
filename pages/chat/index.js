@@ -916,7 +916,7 @@ export default function Chat() {
               return <button
                 onClick={() => {
                   const input = document.getElementById("transcript");
-                  input.value = "What inspired you to create Bitcoin?";
+                  input.value = option
                 }}
               >
                 {" "}
