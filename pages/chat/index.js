@@ -19,6 +19,53 @@ const Popup = ({ isOpen, onClose, id }) => {
   const [selected, setSelected] = useState(false);
   const [address, setAddress] = useState("");
 
+  const router = useRouter()
+
+
+  const confirmationCall = async (id, auth) => {
+    try {
+      const response = await axios({
+        method: "get",
+        url: `https://api-dev.spiritofsatoshi.ai/v1/credits/purchase/${id}/confirmation`,
+        headers: {
+          Authorization: `Bearer ${auth}`,
+        },
+      });
+      if (response.data["purchased"] === true) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+  const checkPurchase = async (id) => {
+    const auth = getCookie("token");
+
+    async function tryCall(seconds) {
+      if (seconds <= 0) {
+        return console.log("expired!");
+      }
+      if ((await confirmationCall(id, auth.toString())) === true) {
+        setConfirmed(true);
+        getUser();
+        return console.log("paid!");
+      } else {
+        setTimeout(async () => {
+          tryCall(seconds - 5);
+          await confirmationCall(id, auth.toString());
+        }, 5000);
+      }
+    }
+    tryCall(600);
+  };
+
+
+
   const fetchCreditPackData = async (amount) => {
     setRefresh(false);
     try {
@@ -84,75 +131,8 @@ const Popup = ({ isOpen, onClose, id }) => {
   }, []);
 
   // function ConfirmPopup({ address, isOpen, onClose, id }: popUpParams) {
-  if (!isOpen) {
-    return null;
-  }
 
-  //   return (
-  //     <div className={styles.overlay}>
-  //       <button
-  //         onClick={() => onClose()}
-  //         style={{
-  //           padding: "0px",
-  //           background: "transparent",
-  //           border: "none",
-  //           position: "absolute",
-  //           top: "5%",
-  //           right: "7%",
-  //           marginBottom: "4%",
-  //         }}
-  //       >
-  //         <img alt="close" height="100%" src="/x.svg" />
-  //       </button>
-  //       <div className={styles.addCreditspPopup}>
-  //         <img src="/checks.svg" />
-  //         <p style={{ color: "rgba(0, 255, 65, 1)" }}>Payment Completed</p>
-  //         <p>Don&apos;t lose your credits, set up an account!</p>
-  //         <button className={styles.createAccount}>Create an account</button>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
-  const confirmationCall = async (id, auth) => {
-    try {
-      const response = await axios({
-        method: "get",
-        url: `https://api-dev.spiritofsatoshi.ai/v1/credits/purchase/${id}/confirmation`,
-        headers: {
-          Authorization: `Bearer ${auth}`,
-        },
-      });
-      if (response.data["purchased"] === true) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const checkPurchase = async (id) => {
-    const auth = getCookie("token");
-
-    async function tryCall(seconds) {
-      if (seconds <= 0) {
-        return console.log("expired!");
-      }
-      if ((await confirmationCall(id, auth.toString())) === true) {
-        setConfirmed(true);
-        getUser();
-        return console.log("paid!");
-      } else {
-        setTimeout(async () => {
-          tryCall(seconds - 5);
-          await confirmationCall(id, auth.toString());
-        }, 5000);
-      }
-    }
-    tryCall(30);
-  };
 
   const copyAdd = (address) => {
     navigator.clipboard
@@ -165,11 +145,16 @@ const Popup = ({ isOpen, onClose, id }) => {
       });
   };
 
+  if (!isOpen) {
+    return null;
+  }
+
+
   return confirmed === false ? (
     <div className={styles.overlay}>
       <div className={styles.addCreditsPopup}>
         <button
-          onClick={() => onClose()}
+          onClick={() => onClose("popup")}
           style={{
             padding: "0px",
             background: "transparent",
@@ -282,7 +267,7 @@ const Popup = ({ isOpen, onClose, id }) => {
   ) : (
     <div className={styles.overlay}>
       <button
-        onClick={() => onClose}
+        onClick={() => onClose("popup")}
         style={{
           padding: "0px",
           background: "transparent",
@@ -299,7 +284,142 @@ const Popup = ({ isOpen, onClose, id }) => {
         <img src="/checks.svg" />
         <p style={{ color: "rgba(0, 255, 65, 1)" }}>Payment Completed</p>
         <p>Don&apos;t lose your credits, set up an account!</p>
-        <button className={styles.createAccount}>Create an account</button>
+        <button onClick={() => {
+          router.push('/')
+        }} className={styles.createAccount}>Create an account</button>
+      </div>
+    </div>
+  );
+};
+
+const Mission = ({ isOpen, onClose, id }) => {
+  if (!isOpen) {
+    return null;
+  }
+
+  return (
+    <div className={styles.overlay}>
+      <div className={styles.aboutPopup}>
+        <button
+          onClick={() => onClose("mission")}
+          style={{
+            padding: "0px",
+            background: "transparent",
+            border: "none",
+            position: "absolute",
+            top: "5%",
+            right: "2%",
+          }}
+        >
+          <img alt="close" height="100%" src="/x.svg" />
+        </button>
+        <p>Mission</p>
+        <p>
+          Satoshi may no longer be with us in body or mind, but through this
+          language model, he will be with us forever in spirit.<br></br>
+          <br></br> Mainstream AI, mainstream economics, mainstream education
+          and crypto are all fiat, and cannot be relied upon. Bitcoin represents
+          a paradigm shift, so to reflect that, we're building our own tools,
+          from first principles, that embody not only the entire Bitcoin
+          knowledge-base, but more importantly, the Bitcoin ethos.<br></br>
+          <br></br> With this tool, we are no longer just “all Satoshi” but
+          Satoshi is now "all of us". <br></br>  <br></br>
+          Join us on this journey. Give Satoshi feedback, spend some sats and
+          connect with him below:
+        </p>
+        <div
+          style={{ display: "-webkit-flex", alignItems: "center", gap: "0 3%" }}
+        >
+          {" "}
+          <a
+            href=""
+            style={{
+              display: "-webkit-flex",
+              alignItems: "center",
+              color: "rgba(0, 255, 65, 1)",
+            }}
+          >
+            <img src="/twitter.svg" />
+            <p style={{ marginLeft: "15%" }}>Twitter</p>
+          </a>{" "}
+          <a
+            href=""
+            style={{
+              display: "-webkit-flex",
+              alignItems: "center",
+              color: "rgba(0, 255, 65, 1)",
+            }}
+          >
+            <img src="/nostr.svg" />
+            <p style={{ marginLeft: "15%" }}>Nostr</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const About = ({ isOpen, onClose, id }) => {
+  if (!isOpen) {
+    return null;
+  }
+
+  return (
+    <div className={styles.overlay}>
+      <div className={styles.aboutPopup}>
+        <button
+          onClick={() => onClose("about")}
+          style={{
+            padding: "0px",
+            background: "transparent",
+            border: "none",
+            position: "absolute",
+            top: "5%",
+            right: "2%",
+          }}
+        >
+          <img alt="close" height="100%" src="/x.svg" />
+        </button>
+        <p>About</p>
+        <p>
+          I am the world's first Bitcoin-centric Large language model. You can
+          think of me as the ultimate authority on Bitcoin. I know all there is
+          to know about it, and I learn more with each day that passes.<br></br>
+          <br></br> Want to know a passage from a book? Just ask. Need help
+          writing a Bitcoin essay? Easy. Want to know how something specific
+          about Bitcoin works? No worries. Need help orange pilling somebody?
+          Send them to me.<br></br>
+          <br></br> This is just the beginning. I'm still learning, so I will
+          make mistakes, but I get better with each day that passes, and your
+          feedback will help me grow and develop.
+        </p>
+        <div
+          style={{ display: "-webkit-flex", alignItems: "center", gap: "0 3%" }}
+        >
+          {" "}
+          <a
+            href=""
+            style={{
+              display: "-webkit-flex",
+              alignItems: "center",
+              color: "rgba(0, 255, 65, 1)",
+            }}
+          >
+            <img src="/twitter.svg" />
+            <p style={{ marginLeft: "15%" }}>Twitter</p>
+          </a>{" "}
+          <a
+            href=""
+            style={{
+              display: "-webkit-flex",
+              alignItems: "center",
+              color: "rgba(0, 255, 65, 1)",
+            }}
+          >
+            <img src="/nostr.svg" />
+            <p style={{ marginLeft: "15%" }}>Nostr</p>
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -338,14 +458,25 @@ export default function Chat() {
   const [allMessages, setAllMessages] = useState([]);
   const [textInput, setTextInput] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [missionOpen, setMissionOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const router = useRouter();
 
   function handleOpenPopup() {
     setIsOpen(true);
   }
 
-  function handleClosePopup() {
-    setIsOpen(false);
+  function handleClosePopup(popup) {
+    if (popup === "mission") {
+      setMissionOpen(false);
+    }
+    if (popup === "about") {
+      setAboutOpen(false);
+    }
+
+    if (popup === "popup") {
+      setIsOpen(false);
+    }
   }
 
   const sendMessage = async (message) => {
@@ -412,7 +543,7 @@ export default function Chat() {
 
   const handleLogout = () => {
     deleteCookie("token");
-    router.push("/");
+    return router.push("/");
   };
 
   useEffect(() => {
@@ -467,6 +598,8 @@ export default function Chat() {
     <div className={inter.className}>
       <div className={styles.chat}>
         <Popup isOpen={isOpen} onClose={handleClosePopup} id="" />
+        <Mission isOpen={missionOpen} onClose={handleClosePopup} id="" />
+        <About isOpen={aboutOpen} onClose={handleClosePopup} id="" />
         <div
           className={
             openMenu === true ? styles.mobileMenu : styles.mobileMenuClosed
@@ -511,15 +644,30 @@ export default function Chat() {
             >
               Add Credits
             </button>
-            <button style={{ color: " white", background: 'transparent'}}>
+            {/* <button style={{ color: " white", background: "transparent" }}>
               <img alt="profile" src="/account.svg" />
               My Profile
-            </button>
-            {/* <button>
-              <img alt="updates" src="/faqs.svg" />
-              Updates & FAQs
             </button> */}
-            <button onClick={() => handleLogout} style={{ color: " white", background: 'transparent'}}>
+
+            <button style={{ background: "transparent", color: "white" }}>
+              <img alt="updates" src="/faqs.svg" />
+              About
+            </button>
+            <button style={{ background: "transparent", color: "white" }}>
+              <img alt="updates" src="/flag.svg" />
+              Mission
+            </button>
+            <button
+              style={{ background: "transparent", color: "white" }}
+              onClick={() => handleLogout()}
+            >
+              <img alt="logout" src="/logout.svg" />
+              Logout
+            </button>
+            <button
+              onClick={() => handleLogout}
+              style={{ color: " white", background: "transparent" }}
+            >
               <img alt="logout" src="/logout.svg" />
               Logout
             </button>
@@ -574,7 +722,7 @@ export default function Chat() {
                     width: "90%",
                   }}
                 >
-                  satoshi@gmx.com
+                  {user?.email === null ? "No email" : user?.email}
                 </p>
               </span>
               <button
@@ -586,15 +734,28 @@ export default function Chat() {
 
               <span className={styles.divider}></span>
               <span className={styles.menuTabs}>
-                <button>
+                {/* <button style={{ background: "transparent", color: "white" }}>
                   <img alt="profile" src="/account.svg" />
                   My Profile
-                </button>
-                {/* <button>
-                  <img alt="updates" src="/faqs.svg" />
-                  Updates & FAQs
                 </button> */}
-                <button onClick={() => handleLogout()}>
+                <button
+                  onClick={() => setAboutOpen(true)}
+                  style={{ background: "transparent", color: "white" }}
+                >
+                  <img alt="updates" src="/faqs.svg" />
+                  About
+                </button>
+                <button
+                  onClick={() => setMissionOpen(true)}
+                  style={{ background: "transparent", color: "white" }}
+                >
+                  <img alt="updates" src="/flag.svg" />
+                  Mission
+                </button>
+                <button
+                  style={{ background: "transparent", color: "white" }}
+                  onClick={() => handleLogout()}
+                >
                   <img alt="logout" src="/logout.svg" />
                   Logout
                 </button>
@@ -637,12 +798,20 @@ export default function Chat() {
             if (message.isFromMentor) {
               return (
                 <div key={index} className={styles.satoshiMessage}>
-                  <span>
+                  <span >
                     <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
-                    <p id="message">{message.text}</p>
-                    <button className={styles.playButton}>
+                    <p style={{margin:'0 3%'}}id="message">{message.text}</p>
+                    <div className={styles.interactiveButtons}>
+                    <button>
+                      <img src="/thumbsUp.svg" />
+                    </button>
+                    <button>
+                      <img src="/thumbsDown.svg" />
+                    </button>
+                    <button>
                       <img src="/playButton.svg" />
                     </button>
+                    </div>
                   </span>
                 </div>
               );
@@ -656,7 +825,7 @@ export default function Chat() {
                 >
                   <span>
                     <img alt="Avatar" src="/avatar.svg" />
-                    <p id="message">{message.text}</p>
+                    <p style={{marginLeft:'3%'}} id="message">{message.text}</p>
                   </span>
                 </div>
               );
@@ -671,6 +840,7 @@ export default function Chat() {
                       border: "1px solid rgba(255, 0, 0, 1)",
                       padding: "3%",
                       borderRadius: "8px",
+                      marginLeft:'3%'
                     }}
                   >
                     {message.text}
@@ -684,7 +854,9 @@ export default function Chat() {
                   <span>
                     <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
 
-                    <p className={styles.thinkingText}>...</p>
+                    <p className={styles.thinkingText} 
+                   
+                  >Thinking...</p>
                   </span>
                 </div>
               );

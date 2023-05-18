@@ -30,21 +30,21 @@ function Lightning({ address }) {
         <br />
         Check out{" "}
         <a
-          style={{ fontWeight: "bold",color: "rgba(0, 255, 65, 1)", opacity: "0.4" }}
-          href="google.com"
+          style={{ fontWeight: "bold", color: "rgba(0, 255, 65, 1)" }}
+          href="https://phoenix.acinq.co/"
         >
           Phoenix,{" "}
-        </a>
+        </a>{" "}
         <a
-          style={{ fontWeight: "bold", color: "rgba(0, 255, 65, 1)", opacity: "0.4" }}
-          href="google.com"
+          style={{ fontWeight: "bold", color: "rgba(0, 255, 65, 1)" }}
+          href="https://bitkit.to/"
         >
           BitKit
         </a>{" "}
         or{" "}
         <a
-          style={{ fontWeight: "bold", color: "rgba(0, 255, 65, 1)", opacity: "0.4" }}
-          href="google.com"
+          style={{ fontWeight: "bold", color: "rgba(0, 255, 65, 1)" }}
+          href="https://www.walletofsatoshi.com/"
         >
           Wallet of Satoshi
         </a>
@@ -103,18 +103,18 @@ export default function Home() {
 
       const pin = pin1 + pin2 + pin3 + pin4 + pin5 + pin6;
       console.log(pin.toString());
-      console.log(otpId.toString())
+      console.log(otpId.toString());
       const id = otpId.toString();
       const pinCode = pin.toString();
       const response = await axios.post(
         "https://api-dev.spiritofsatoshi.ai/v1/account/verify-otp",
         {
           otpId: id,
-          code: pinCode
+          code: pinCode,
         }
       );
 
-      console.log(response.status)
+      console.log(response.status);
       if (response.status === 200) {
         const oneYearFromNow = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
         setCookie("token", response.data["token"], {
@@ -139,17 +139,42 @@ export default function Home() {
   const emailSignUp = async (e) => {
     e.preventDefault();
     try {
-      const email = document.getElementById("email").value;
-      const username = document.getElementById("username").value;
+      const email = document.getElementById("emailSignUp").value;
+      const username = document.getElementById("usernameSignUp").value;
       const response = await axios.post(
         "https://api-dev.spiritofsatoshi.ai/v1/account/email/signup",
         {
           email: email,
-          fullName: username
+          fullName: username,
         }
       );
       if (response.data["otpId"]) {
-        setOtpId(response.data["otpId"])
+        setOtpId(response.data["otpId"]);
+        setRegisterState("verify");
+        return;
+      }
+      if (response.status === 400) {
+        alert("Email already exists, try loggin in");
+      }
+    } catch (error) {
+      return console.log(error);
+    }
+  };
+
+  const emailLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const email = document.getElementById("email").value;
+      const username = document.getElementById("username").value;
+      const response = await axios.post(
+        "https://api-dev.spiritofsatoshi.ai/v1/account/email/login",
+        {
+          email: email,
+          fullName: username,
+        }
+      );
+      if (response.data["otpId"]) {
+        setOtpId(response.data["otpId"]);
         setRegisterState("verify");
         return;
       }
@@ -163,12 +188,33 @@ export default function Home() {
 
   const checkLogin = async () => {
     try {
+      if (getCookie("token")) {
+        const response = await axios.post(
+          "https://api-dev.spiritofsatoshi.ai/v1/account/lnurl/login/check",
+          {
+            lnAddressId: getCookie("lnAddressId"),
+            Authorization: getCookie("token"),
+          }
+        );
+
+        const oneYearFromNow = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+        console.log(response.data);
+        if (response.data["token"]) {
+          setCookie("token", response.data["token"], {
+            expires: oneYearFromNow,
+          });
+          router.push("/chat");
+        }
+        return;
+      }
+
       const response = await axios.post(
         "https://api-dev.spiritofsatoshi.ai/v1/account/lnurl/login/check",
         {
           lnAddressId: getCookie("lnAddressId"),
         }
       );
+
       const oneYearFromNow = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
       console.log(response.data);
       if (response.data["token"]) {
@@ -202,7 +248,7 @@ export default function Home() {
           return router.push("/chat");
         }
       }
-      return;
+      return router.push("/chat");
     } catch (error) {
       console.log(error);
     }
@@ -223,10 +269,10 @@ export default function Home() {
                 Enter
               </button>
               <button
-                onClick={() => setRegisterState("login")}
+                onClick={() => setRegisterState("signup")}
                 className={styles.loginButton}
               >
-               Sign Up
+                Sign Up
               </button>
               <button
                 onClick={() => setRegisterState("login")}
@@ -289,38 +335,41 @@ export default function Home() {
               {selectedLogin === "email" ? (
                 <form className={styles.registerInputContainer}>
                   <input
-                    id="username"
-                    placeholder="Username"
-                    className={styles.registerInput}
-                  />
-
-                  <input
-                    id="email"
+                    id="emailLogin"
                     placeholder="Email Address"
                     className={styles.registerInput}
                   />
 
                   <button
-                    onClick={(event) => emailSignUp(event)}
+                    onClick={(event) => emailLogin(event)}
                     className={styles.registerButton}
                   >
-                    Register
+                    Login
                   </button>
                 </form>
               ) : selectedLogin === "lightning" ? (
                 <Lightning address={qrCodeString} />
               ) : (
-                <form className={styles.registerInputContainer}>
+                <div className={styles.registerInputContainer}>
                   <input
                     placeholder="NIP-05"
                     className={styles.registerInput}
+                    id="nipLogin"
                   />
-                  <input placeholder="npub" className={styles.registerInput} />
+                  <input
+                    id="npubLogin"
+                    placeholder="npub"
+                    className={styles.registerInput}
+                  />
 
-                  <input placeholder="Relay" className={styles.registerInput} />
+                  <input
+                    id="relayLogin"
+                    placeholder="Relay"
+                    className={styles.registerInput}
+                  />
 
                   <button onClick={() => {}} className={styles.registerButton}>
-                    Register
+                    Login
                   </button>
                   <p
                     style={{
@@ -333,7 +382,116 @@ export default function Home() {
                   >
                     We will send you a code via DM to your Nostr account
                   </p>
+                </div>
+              )}
+            </span>
+          </>
+        ) : registerState === "signup" ? (
+          <>
+            <img className={styles.logo2} alt="logo" src="/spiritLogo2.svg" />
+            <span className={styles.titleModal}>
+              <button
+                onClick={() => setRegisterState("default")}
+                style={{
+                  padding: "0px",
+                  background: "transparent",
+                  border: "none",
+                  position: "absolute",
+                  top: "5%",
+                  right: "7%",
+                  marginBottom: "4%",
+                }}
+              >
+                <img alt="close" height="100%" src="/x.svg" />
+              </button>
+              <div className={styles.btcLogins}>
+                <button
+                  onClick={() => setSelectedLogin("email")}
+                  className={
+                    selectedLogin === "email"
+                      ? styles.selected
+                      : styles.unselected
+                  }
+                >
+                  Email
+                </button>
+                <button
+                  onClick={() => handleLightning()}
+                  className={
+                    selectedLogin === "lightning"
+                      ? styles.selected
+                      : styles.unselected
+                  }
+                >
+                  Lightning
+                </button>
+                <button
+                  onClick={() => setSelectedLogin("nostr")}
+                  className={
+                    selectedLogin === "nostr"
+                      ? styles.selected
+                      : styles.unselected
+                  }
+                >
+                  Nostr
+                </button>
+              </div>
+              {selectedLogin === "email" ? (
+                <form className={styles.registerInputContainer}>
+                  <input
+                    id="usernameSignUp"
+                    placeholder="Username"
+                    className={styles.registerInput}
+                  />
+                    <input
+                    id="emailSignUp"
+                    placeholder="Email Address"
+                    className={styles.registerInput}
+                  />
+
+                  <button
+                    onClick={(event) => emailSignUp(event)}
+                    className={styles.registerButton}
+                  >
+                    Sign Up
+                  </button>
                 </form>
+              ) : selectedLogin === "lightning" ? (
+                <Lightning address={qrCodeString} />
+              ) : (
+                <div className={styles.registerInputContainer}>
+                  <input
+                    placeholder="NIP-05"
+                    className={styles.registerInput}
+                    id="nipLogin"
+                  />
+                  <input
+                    id="npubLogin"
+                    placeholder="npub"
+                    className={styles.registerInput}
+                  />
+
+                  <input
+                    id="relayLogin"
+                    placeholder="Relay"
+                    className={styles.registerInput}
+                  />
+
+                  <button onClick={() => {}} className={styles.registerButton}>
+                    Sign Up
+                  </button>
+                  <p
+                    style={{
+                      color: "white",
+                      textAlign: "center",
+                      maxWidth: "70%",
+                      margin: "auto",
+                      fontSize: "11px",
+                    }}
+                  >
+                    We will send you a code via DM to your Nostr account
+                  </p>
+                </div>
               )}
             </span>
           </>
@@ -449,7 +607,6 @@ export default function Home() {
                 {invalid === true ? (
                   <span
                     style={{
-                    
                       color: "red",
                       textAlign: "center",
                       margin: "0 auto 3vh auto",
@@ -463,7 +620,7 @@ export default function Home() {
                   onClick={(event) => verifyOTP(event)}
                   className={styles.registerButton}
                 >
-                  Sumbit
+                  Submit
                 </button>
               </div>
               <span
