@@ -12,10 +12,29 @@ const inter = Inter({
 });
 
 function Lightning({ address }) {
+  const copyAdd = (address) => {
+    navigator.clipboard
+      .writeText(address)
+      .then(() => {
+        alert("copied");
+      })
+      .catch((error) => {
+        console.error("Error copying text to clipboard:", error);
+      });
+  };
+
   return (
     <div className={styles.popup}>
-      <QRCode value={address} size={256} key={address} />
-      <p>Scan this with your lightning wallet to login</p>
+      <QRCode
+        value={address}
+        size={256}
+        key={address}
+        onClick={() => copyAdd(address)}
+      />
+      <span style={{ marginTop: "4%", textAlign: "center" }}>
+        Scan this with your lightning wallet to login <p>or</p>{" "}
+        <p>Click to copy</p>
+      </span>
       <p
         style={{
           color: "white",
@@ -77,9 +96,26 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "https://api-dev.spiritofsatoshi.ai/v1/account/lnurl/login"
-      );
+      if (getCookie("token")) {
+        const token = getCookie("token");
+        const response = await axios({
+          url: "https://api-dev.spiritofsatoshi.ai/v1/account/lnurl/login",
+          method: "get",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const oneYearFromNow = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
+        setQrCodeString(response.data["lnAddress"]);
+        setCookie("lnAddressId", response.data["lnAddressId"], {
+          expires: oneYearFromNow,
+        });
+        return;
+      }
+      const response = await axios({
+        url: "https://api-dev.spiritofsatoshi.ai/v1/account/lnurl/login",
+        method: "get",
+      });
       const oneYearFromNow = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
       setQrCodeString(response.data["lnAddress"]);
       setCookie("lnAddressId", response.data["lnAddressId"], {
@@ -114,7 +150,16 @@ export default function Home() {
         }
       );
 
-      console.log(response.status);
+      if (hasCookie("token")) {
+        if (response.status === 200) {
+          return router.push("/chat");
+        }
+        if (response.status === 400) {
+          setInvalid(true);
+          return;
+        }
+      }
+
       if (response.status === 200) {
         const oneYearFromNow = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
         setCookie("token", response.data["token"], {
@@ -139,15 +184,43 @@ export default function Home() {
   const emailSignUp = async (e) => {
     e.preventDefault();
     try {
+      if (hasCookie("token")) {
+        const token = getCookie("token");
+        const email = document.getElementById("emailSignUp").value;
+        const username = document.getElementById("usernameSignUp").value;
+        const response = await axios({
+          url: "https://api-dev.spiritofsatoshi.ai/v1/account/email/signup",
+          data: {
+            email: email,
+            fullName: username,
+          },
+          method: "post",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.data["otpId"]) {
+          setOtpId(response.data["otpId"]);
+          setRegisterState("verify");
+          return;
+        }
+        if (response.status === 400) {
+          return alert("Email already exists, try loggin in");
+        }
+      }
       const email = document.getElementById("emailSignUp").value;
       const username = document.getElementById("usernameSignUp").value;
-      const response = await axios.post(
-        "https://api-dev.spiritofsatoshi.ai/v1/account/email/signup",
-        {
+      const response = await axios({
+        url: "https://api-dev.spiritofsatoshi.ai/v1/account/email/signup",
+        data: {
           email: email,
           fullName: username,
-        }
-      );
+        },
+        method: "post",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.data["otpId"]) {
         setOtpId(response.data["otpId"]);
         setRegisterState("verify");
@@ -155,6 +228,56 @@ export default function Home() {
       }
       if (response.status === 400) {
         alert("Email already exists, try loggin in");
+      }
+    } catch (error) {
+      return console.log(error);
+    }
+  };
+
+  const nostrLogin = async (e) => {
+    e.preventDefault();
+    try {
+      if (hasCookie("token")) {
+        const token = getCookie("token");
+        const npub = document.getElementById("npub").value;
+        const relay = document.getElementById("relay").value;
+        const response = await axios({
+          url: "https://api-dev.spiritofsatoshi.ai/v1/account/nostr/login",
+          data: {
+            nPub: npub,
+            relay: relay,
+          },
+          method: "post",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.data["otpId"]) {
+          setOtpId(response.data["otpId"]);
+          setRegisterState("verify");
+          return;
+        }
+        if (response.status === 400) {
+          return alert("Email already exists, try loggin in");
+        }
+      }
+      const npub = document.getElementById("npub").value;
+      const relay = document.getElementById("relay").value;
+      const response = await axios({
+        url: "https://api-dev.spiritofsatoshi.ai/v1/account/nostr/login",
+        data: {
+          nPub: npub,
+          relay: relay,
+        },
+        method: "post",
+      });
+      if (response.data["otpId"]) {
+        setOtpId(response.data["otpId"]);
+        setRegisterState("verify");
+        return;
+      }
+      if (response.status === 400) {
+        return alert("Email already exists, try loggin in");
       }
     } catch (error) {
       return console.log(error);
@@ -188,26 +311,6 @@ export default function Home() {
 
   const checkLogin = async () => {
     try {
-      if (getCookie("token")) {
-        const response = await axios.post(
-          "https://api-dev.spiritofsatoshi.ai/v1/account/lnurl/login/check",
-          {
-            lnAddressId: getCookie("lnAddressId"),
-            Authorization: getCookie("token"),
-          }
-        );
-
-        const oneYearFromNow = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
-        console.log(response.data);
-        if (response.data["token"]) {
-          setCookie("token", response.data["token"], {
-            expires: oneYearFromNow,
-          });
-          router.push("/chat");
-        }
-        return;
-      }
-
       const response = await axios.post(
         "https://api-dev.spiritofsatoshi.ai/v1/account/lnurl/login/check",
         {
@@ -216,7 +319,6 @@ export default function Home() {
       );
 
       const oneYearFromNow = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000);
-      console.log(response.data);
       if (response.data["token"]) {
         setCookie("token", response.data["token"], { expires: oneYearFromNow });
         router.push("/chat");
@@ -351,11 +453,7 @@ export default function Home() {
                 <Lightning address={qrCodeString} />
               ) : (
                 <div className={styles.registerInputContainer}>
-                  <input
-                    placeholder="NIP-05"
-                    className={styles.registerInput}
-                    id="nipLogin"
-                  />
+              
                   <input
                     id="npubLogin"
                     placeholder="npub"
@@ -368,7 +466,7 @@ export default function Home() {
                     className={styles.registerInput}
                   />
 
-                  <button onClick={() => {}} className={styles.registerButton}>
+                  <button onClick={() => nostrLogin()} className={styles.registerButton}>
                     Login
                   </button>
                   <p
@@ -443,7 +541,7 @@ export default function Home() {
                     placeholder="Username"
                     className={styles.registerInput}
                   />
-                    <input
+                  <input
                     id="emailSignUp"
                     placeholder="Email Address"
                     className={styles.registerInput}
@@ -461,23 +559,18 @@ export default function Home() {
               ) : (
                 <div className={styles.registerInputContainer}>
                   <input
-                    placeholder="NIP-05"
-                    className={styles.registerInput}
-                    id="nipLogin"
-                  />
-                  <input
-                    id="npubLogin"
+                    id="npub"
                     placeholder="npub"
                     className={styles.registerInput}
                   />
 
                   <input
-                    id="relayLogin"
+                    id="relay"
                     placeholder="Relay"
                     className={styles.registerInput}
                   />
 
-                  <button onClick={() => {}} className={styles.registerButton}>
+                  <button onClick={() => nostrLogin()}  className={styles.registerButton}>
                     Sign Up
                   </button>
                   <p
