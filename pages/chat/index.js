@@ -181,7 +181,7 @@ const Popup = ({ isOpen, onClose, id }) => {
             key={address}
             onClick={() => copyAdd(address)}
           />
-          <p>Click to copy</p>
+           <p>Click the QR code to copy</p>
           <p className={styles.instructions}>
             Scan this Lightning invoice to add {creditPack} Replies to your
             account and continue the conversation with Satoshi.

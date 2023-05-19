@@ -33,7 +33,7 @@ function Lightning({ address }) {
       />
       <span style={{ marginTop: "4%", textAlign: "center" }}>
         Scan this with your lightning wallet to login <p>or</p>{" "}
-        <p>Click to copy</p>
+        <p>Click the QR code to copy</p>
       </span>
       <p
         style={{
