@@ -287,13 +287,11 @@ export default function Home() {
   const emailLogin = async (e) => {
     e.preventDefault();
     try {
-      const email = document.getElementById("email").value;
-      const username = document.getElementById("username").value;
+      const email = document.getElementById("emailLogin").value;
       const response = await axios.post(
         "https://api-dev.spiritofsatoshi.ai/v1/account/email/login",
         {
           email: email,
-          fullName: username,
         }
       );
       if (response.data["otpId"]) {
