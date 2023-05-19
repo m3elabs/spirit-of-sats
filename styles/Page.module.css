@@ -228,7 +228,7 @@
   z-index: 5;
   display: flex;
   flex-direction: column;
-  align-items:center;
+  align-items: center;
   justify-content: center;
   width: 15%;
   height: 60%;
@@ -261,15 +261,15 @@
 
 .satoshiMessage p {
   width: 80%;
-  vertical-align:top;
+  vertical-align: top;
 }
 
 .satoshiMessage span {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
- flex: flex-grow;
- width: 87%;
+  flex: flex-grow;
+  width: 87%;
   margin: 1% 5%;
   padding: 2% 0;
   line-height: 1.5;
@@ -321,20 +321,29 @@
   }
 }
 
-.errorMessage {
+.errorMessage p {
+  width: 80%;
+  vertical-align: top;
+}
+
+.errorMessage span {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
+  flex: flex-grow;
   width: 87%;
-  margin: 3% 5%;
-  padding: 3% 0;
+  margin: 1% 5%;
+  padding: 2% 0;
   line-height: 1.5;
-  gap: 0 3%;
-  color: white;
-  overflow-x: none;
-  @media (min-width: 931px) {
-    width: 60%;
+  overflow-x: none !important;
+  font-size: 13px;
+}
+
+@media (min-width: 931px) {
+  .errorMessage span {
+    width: 50%;
     margin: auto;
+    font-size: 16px;
   }
 }
 
@@ -348,9 +357,8 @@
 @media (max-width: 930px) {
   .interactiveButtons {
     flex-direction: column;
-    gap:10px 0;
+    gap: 10px 0;
   }
-
 }
 
 .interactiveButtons button {
@@ -457,8 +465,6 @@
   background-color: transparent;
 }
 
-
-
 .inputBoxHints button {
   max-width: 72vw !important;
   outline: none;
@@ -468,7 +474,6 @@
   border-radius: 8px;
   color: white;
   padding: 0 2%;
-  
 
   @media (min-width: 930px) {
     outline: none;
@@ -481,7 +486,6 @@
     max-width: 24vw;
   }
 }
-
 
 .creditOptions {
   display: flex;
