@@ -12,7 +12,7 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const Popup = ({ isOpen, onClose, id , user}) => {
+const Popup = ({ isOpen, onClose, id, user }) => {
   const [confirmed, setConfirmed] = useState(false);
   const [creditPack, setCreditPack] = useState("");
   const [refresh, setRefresh] = useState(false);
@@ -455,9 +455,6 @@ export default function Chat() {
   //   loading: boolean | undefined;
   // };
 
-
-
-
   const [user, setUser] = useState({});
   const [openMenu, setOpenMenu] = useState(false);
   const [showAccount, setShowAccount] = useState(false);
@@ -587,17 +584,9 @@ export default function Chat() {
       });
   };
 
-  const handelThumbsUp = () => {
+  const handelThumbsUp = () => {};
 
-
-
-  }
-
-  const handleThumbsDown = () => {
-
-
-
-  }
+  const handleThumbsDown = () => {};
 
   const handleLogout = () => {
     if (user["isAnonymous"]) {
@@ -658,7 +647,13 @@ export default function Chat() {
   return (
     <div className={inter.className}>
       <div className={styles.chat}>
-        <Popup isOpen={isOpen} onClose={handleClosePopup} id="" user={user} key={user} />
+        <Popup
+          isOpen={isOpen}
+          onClose={handleClosePopup}
+          id=""
+          user={user}
+          key={user}
+        />
         <Mission isOpen={missionOpen} onClose={handleClosePopup} id="" />
         <About isOpen={aboutOpen} onClose={handleClosePopup} id="" />
         <div
@@ -699,14 +694,16 @@ export default function Chat() {
           </span>
 
           <span className={styles.menuTabs}>
-            <button
-              onClick={() => {
-                router.push("/");
-              }}
-              className={styles.createButtonMobile}
-            >
-              Create Account
-            </button>
+            {!user["isAnonymous"] ? (
+              <button
+                onClick={() => {
+                  router.push("/");
+                }}
+                className={styles.createButtonMobile}
+              >
+                Create Account
+              </button>
+            ) : null}
 
             <button
               onClick={() => handleOpenPopup()}
@@ -794,14 +791,16 @@ export default function Chat() {
                   {user?.email === null ? "No email" : user?.email}
                 </p>
               </span>
+              {!user["isAnonymous"] ? (
               <button
-              onClick={() => {
-                router.push("/");
-              }}
-              className={styles.createButton}
-            >
-              Create Account
-            </button>
+                onClick={() => {
+                  router.push("/");
+                }}
+                className={styles.createButtonMobile}
+              >
+                Create Account
+              </button>
+            ) : null}
 
               <button
                 onClick={() => handleOpenPopup()}
