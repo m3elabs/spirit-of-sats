@@ -725,7 +725,7 @@ export default function Chat() {
             />
           </span>
           <span className={styles.logo2Placement}>
-            <img alt="logo2" src="/spiritLogo2.png" style={{ zIndex: 3 }} />
+            <img alt="logo2" src="/spiritLogo2.svg" style={{ zIndex: 3 }} />
           </span>
           <span className={styles.placeholder2}></span>
 

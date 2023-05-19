@@ -227,8 +227,8 @@
 .logo2Placement {
   display: flex;
   justify-content: center;
-  width:20%;
-  height: 70%;
+  width: fit-content;
+  height: 100%;
 }
 
 .chatMessages {
