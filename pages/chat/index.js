@@ -460,14 +460,14 @@ export default function Chat() {
   const [missionOpen, setMissionOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const questions = [
-    "Hey Satoshi, tell me something about Bitcoin",
-    "Hey Satoshi, what's your thoughts on Nostr?",
-    "Hey Satoshi, what do you think about other cryptos?",
-    "Hey Satoshi, tell me what you can do.",
-    "Hey Satoshi, I want to learn about Bitcoin. Where should I start?",
-    "Hey Satoshi, what are some good Bitcoin books I should read?",
-    "Hey Satoshi, is there a second best crypto ?",
-    "Hey Satoshi, what's your Nostr nPub?",
+    "Tell me something about Bitcoin",
+    "What's your thoughts on Nostr?",
+    "What do you think about other cryptos?",
+    "Tell me what you can do.",
+    "I want to learn about Bitcoin. Where should I start?",
+    "What are some good Bitcoin books I should read?",
+    "Is there a second best crypto ?",
+    "What's your Nostr nPub?",
   ];
   const router = useRouter();
 
@@ -545,7 +545,7 @@ export default function Chat() {
         error: true,
         isFromMentor: false,
         isFromUser: false,
-        text: "You don't have enough credits, add more by clicking the profile tab in the menu.",
+        text: "Oops… I’d love to respond but we’re out of credits. You can top up with Sats here.",
         createdAt: new Date(),
         type: "",
         message: "",
@@ -838,7 +838,7 @@ export default function Chat() {
                 <div key={index} className={styles.satoshiMessage}>
                   <span>
                     <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
-                    <p style={{ margin: "0 3%" }} id="message">
+                    <p style={{ margin: "0 3%"}} id="message">
                       {message.text}
                     </p>
                     <div className={styles.interactiveButtons}>
@@ -879,15 +879,17 @@ export default function Chat() {
                   <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
                   <p
                     style={{
-                      background: "rgba(255, 0, 0, 0.6)",
-                      border: "1px solid rgba(255, 0, 0, 1)",
-                      padding: "3%",
-                      borderRadius: "8px",
                       marginLeft: "3%",
                     }}
                   >
                     {message.text}
                   </p>
+                  <button
+                onClick={() => handleOpenPopup()}
+                className={styles.creditsButtonInChat}
+              >
+                Add Credits
+              </button>
                 </div>
               );
             }
@@ -897,7 +899,7 @@ export default function Chat() {
                   <span>
                     <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
 
-                    <p className={styles.thinkingText}>Thinking...</p>
+                    <p className={styles.thinkingText}>...</p>
                   </span>
                 </div>
               );

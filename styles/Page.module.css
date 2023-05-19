@@ -34,7 +34,7 @@
   animation: typing 3s infinite;
   background: rgba(0, 255, 65, 0.6);
   border: 1px solid rgba(0, 255, 65, 1);
-  padding: 2%;
+  padding: 0 2%;
   border-radius: 8px;
   margin-left: 3%;
 }
@@ -58,8 +58,8 @@
   animation-fill-mode: forwards;
   padding: 4% 1%;
 }
-  @media screen and (min-width: 600px) {
-    .titleModal {
+@media screen and (min-width: 600px) {
+  .titleModal {
     height: intrinsic; /* Safari/WebKit uses a non-standard name */
     height: -moz-max-content; /* Firefox/Gecko */
     height: -webkit-max-content;
@@ -261,11 +261,16 @@
   flex-direction: row;
   align-items: center;
   width: 87%;
-  margin: 3% 5%;
-  padding: 3% 0;
+  margin: 1% 5%;
+  padding: 2% 0;
   line-height: 1.5;
-  overflow-x: none;
-  @media (min-width: 931px) {
+  height: fit-content;
+  overflow-x: none !important;
+  font-size: 13px;
+}
+
+@media (min-width: 931px) {
+  .satoshiMessage span {
     width: 60%;
     margin: auto;
   }
@@ -299,7 +304,9 @@
   line-height: 1.5;
   gap: 0 3%;
   overflow-x: none;
-  @media (min-width: 931px) {
+}
+@media (min-width: 931px) {
+  .userMessage {
     width: 60%;
     margin: auto;
   }
@@ -357,7 +364,6 @@
   flex-direction: column;
 }
 
-
 .divider {
   border: 0.5px solid white;
 }
@@ -373,6 +379,18 @@
 
   margin: 0 auto;
   margin-bottom: 2%;
+  box-shadow: 0px 8px 16px rgba(0, 171, 85, 0.24);
+  color: black;
+}
+
+.creditsButtonInChat {
+  background: rgba(0, 255, 65, 1);
+  outline: none;
+  border: none;
+  font-weight: bold;
+  width: 10%;
+  border-radius: 8px;
+  padding: 2% 0;
   box-shadow: 0px 8px 16px rgba(0, 171, 85, 0.24);
   color: black;
 }
@@ -548,8 +566,8 @@
   background: #212b36;
   border-radius: 8px;
 }
-  @media (min-width: 931px) {
-    .inputContainer {
+@media (min-width: 931px) {
+  .inputContainer {
     display: flex;
     flex-direction: row;
     background: #212b36;
@@ -841,8 +859,8 @@
   margin: 0 auto;
   left: 0;
 }
-  @media only screen and (min-width: 600px) {
-    .logo {
+@media only screen and (min-width: 600px) {
+  .logo {
     max-width: 100%;
     max-height: 40%;
     z-index: 1;
