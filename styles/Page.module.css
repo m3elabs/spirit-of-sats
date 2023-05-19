@@ -57,7 +57,9 @@
   animation-duration: 6s;
   animation-fill-mode: forwards;
   padding: 4% 1%;
+}
   @media screen and (min-width: 600px) {
+    .titleModal {
     height: intrinsic; /* Safari/WebKit uses a non-standard name */
     height: -moz-max-content; /* Firefox/Gecko */
     height: -webkit-max-content;
@@ -340,15 +342,21 @@
   padding-top: 5%;
   gap: 1.5vh 0;
   position: absolute;
-  bottom: -32vh;
-  height: fit-content;
+  bottom: -34vh;
+  height: 32vh;
   left: 0;
   right: 0;
   border-radius: 9px;
   background: #212b36;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
+
 
 .divider {
   border: 0.5px solid white;
@@ -362,6 +370,7 @@
   width: 90%;
   border-radius: 8px;
   padding: 4% 0;
+
   margin: 0 auto;
   margin-bottom: 2%;
   box-shadow: 0px 8px 16px rgba(0, 171, 85, 0.24);
@@ -480,7 +489,7 @@
   flex-direction: column;
   color: white;
   justify-content: center;
-  height: 30%;
+  height: fit-content;
   gap: 1vh 0;
   padding: 0 5%;
 }
@@ -490,7 +499,7 @@
   flex-direction: row;
   align-items: center;
   gap: 0 5%;
-  z-index: 10;
+  z-index: 5;
   outline: none;
   border: none;
   padding: 5% 2%;
@@ -831,8 +840,9 @@
   right: 0;
   margin: 0 auto;
   left: 0;
-
+}
   @media only screen and (min-width: 600px) {
+    .logo {
     max-width: 100%;
     max-height: 40%;
     z-index: 1;
