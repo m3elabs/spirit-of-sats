@@ -891,7 +891,7 @@ export default function Chat() {
                 >
                   <span>
                     <img alt="Avatar" src="/avatar.svg" />
-                    <p style={{ marginLeft: "3%" }} id="message">
+                    <p style={{ margin: "0 0 0 3%" }} id="message">
                       {message.text}
                     </p>
                   </span>

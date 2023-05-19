@@ -259,12 +259,13 @@
 
 .satoshiMessage p {
   width: 80%;
+  vertical-align:top;
 }
 
 .satoshiMessage span {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
  flex: flex-grow;
  width: 87%;
   margin: 1% 5%;
@@ -276,8 +277,9 @@
 
 @media (min-width: 931px) {
   .satoshiMessage span {
-    width: 60%;
+    width: 50%;
     margin: auto;
+    font-size: 16px;
   }
 }
 
@@ -302,7 +304,7 @@
 .userMessage span {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   width: 87%;
   margin: 3% 5%;
   padding: 3% 0;
@@ -453,7 +455,7 @@
   background: rgba(145, 158, 171, 0.16);
   border-radius: 8px;
   color: white;
-  padding: 0 3%;
+  padding: 0 1%;
 
   @media (min-width: 930px) {
     outline: none;
@@ -462,7 +464,7 @@
     background: rgba(145, 158, 171, 0.16);
     border-radius: 8px;
     color: white;
-    padding: 0 5%;
+    padding: 0 1%;
     max-width: 24vw;
   }
 }
