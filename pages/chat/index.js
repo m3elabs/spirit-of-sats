@@ -455,6 +455,9 @@ export default function Chat() {
   //   loading: boolean | undefined;
   // };
 
+
+
+
   const [user, setUser] = useState({});
   const [openMenu, setOpenMenu] = useState(false);
   const [showAccount, setShowAccount] = useState(false);
@@ -583,6 +586,18 @@ export default function Chat() {
         console.log(error);
       });
   };
+
+  const handelThumbsUp = () => {
+
+
+
+  }
+
+  const handleThumbsDown = () => {
+
+
+    
+  }
 
   const handleLogout = () => {
     if (user["isAnonymous"]) {
