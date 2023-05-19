@@ -161,12 +161,11 @@
   padding: 1%;
 }
 
-  @media only screen and (max-width: 930px) {
-    .detailBar {
+@media only screen and (max-width: 930px) {
+  .detailBar {
     height: 7%;
-    }
   }
-
+}
 
 .addCredits {
   width: 100%;
@@ -207,8 +206,8 @@
   width: 15%;
   height: 100%;
 }
-  @media only screen and (min-width: 931px) {
-    .placeholder2 {
+@media only screen and (min-width: 931px) {
+  .placeholder2 {
     display: none;
   }
 }
@@ -216,8 +215,8 @@
 .placeholder1 {
   display: none;
 }
-  @media (min-width: 931px) {
-    .placeholder1 {
+@media (min-width: 931px) {
+  .placeholder1 {
     display: flex;
     width: 15% !important;
   }
@@ -232,8 +231,8 @@
   margin-left: 3%;
 }
 
-  @media (min-width: 931px) {
-    .hamburgermenu {
+@media (min-width: 931px) {
+  .hamburgermenu {
     display: none;
   }
 }
@@ -513,8 +512,10 @@
   color: white;
   padding-left: 1%;
   font-size: 16px;
+}
 
-  @media (min-width: 931px) {
+@media (min-width: 931px) {
+  .inputBox {
     width: 60vw;
     outline: none;
     border: none;
@@ -537,8 +538,9 @@
   flex-direction: row;
   background: #212b36;
   border-radius: 8px;
-
+}
   @media (min-width: 931px) {
+    .inputContainer {
     display: flex;
     flex-direction: row;
     background: #212b36;
@@ -640,7 +642,7 @@
   width: 90%;
   display: flex;
   flex-direction: row;
-  margin:auto 0 15% auto;
+  margin: auto 0 15% auto;
   align-items: center;
   justify-content: center;
   gap: 0 5%;
@@ -656,6 +658,12 @@
   padding: 2% 3%;
   color: white;
   width: 6vw;
+}
+
+@media (min-width: 930px) {
+  .verifyInput {
+    width: 2vw;
+  }
 }
 
 .registerInput {
@@ -852,10 +860,10 @@
   left: 0;
 }
 
-  @media only screen and (min-width: 1025px) {
-    .logo2{
-      display: flex;
-    }
+@media only screen and (min-width: 1025px) {
+  .logo2 {
+    display: flex;
+  }
 }
 .buttonContainer {
   width: 90%;
