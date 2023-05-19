@@ -181,7 +181,7 @@ const Popup = ({ isOpen, onClose, id }) => {
             key={address}
             onClick={() => copyAdd(address)}
           />
-           <p>Click the QR code to copy</p>
+          <p>Click the QR code to copy</p>
           <p className={styles.instructions}>
             Scan this Lightning invoice to add {creditPack} Replies to your
             account and continue the conversation with Satoshi.
@@ -274,19 +274,20 @@ const Popup = ({ isOpen, onClose, id }) => {
       </button>
       <div className={styles.addCreditsPopup}>
         <img src="/checks.svg" />
-        { user['isAnonymous'] ? 
+        {user["isAnonymous"] ? (
           <>
-        <p style={{ color: "rgba(0, 255, 65, 1)" }}>Payment Completed</p>
-        <p>Don&apos;t lose your credits, set up an account!</p>
-        <button
-          onClick={() => {
-            router.push("/");
-          }}
-          className={styles.createAccount}
-        >
-          Create an account
-        </button>
-        </> : null }
+            <p style={{ color: "rgba(0, 255, 65, 1)" }}>Payment Completed</p>
+            <p>Don&apos;t lose your credits, set up an account!</p>
+            <button
+              onClick={() => {
+                router.push("/");
+              }}
+              className={styles.createAccount}
+            >
+              Create an account
+            </button>
+          </>
+        ) : null}
       </div>
     </div>
   );
@@ -584,7 +585,7 @@ export default function Chat() {
   };
 
   const handleLogout = () => {
-    if (user['isAnonymous']) {
+    if (user["isAnonymous"]) {
       return router.push("/");
     }
     deleteCookie("token");
@@ -684,6 +685,15 @@ export default function Chat() {
 
           <span className={styles.menuTabs}>
             <button
+              onClick={() => {
+                router.push("/");
+              }}
+              className={styles.createButtonMobile}
+            >
+              Create Account
+            </button>
+
+            <button
               onClick={() => handleOpenPopup()}
               className={styles.creditsButtonMobile}
             >
@@ -770,6 +780,15 @@ export default function Chat() {
                 </p>
               </span>
               <button
+              onClick={() => {
+                router.push("/");
+              }}
+              className={styles.createButton}
+            >
+              Create Account
+            </button>
+
+              <button
                 onClick={() => handleOpenPopup()}
                 className={styles.creditsButton}
               >
@@ -844,7 +863,7 @@ export default function Chat() {
                 <div key={index} className={styles.satoshiMessage}>
                   <span>
                     <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
-                    <p style={{ margin: "0 3%"}} id="message">
+                    <p style={{ margin: "0 3%" }} id="message">
                       {message.text}
                     </p>
                     <div className={styles.interactiveButtons}>
@@ -891,11 +910,11 @@ export default function Chat() {
                     {message.text}
                   </p>
                   <button
-                onClick={() => handleOpenPopup()}
-                className={styles.creditsButtonInChat}
-              >
-                Add Credits
-              </button>
+                    onClick={() => handleOpenPopup()}
+                    className={styles.creditsButtonInChat}
+                  >
+                    Add Credits
+                  </button>
                 </div>
               );
             }
