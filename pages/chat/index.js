@@ -694,7 +694,7 @@ export default function Chat() {
           </span>
 
           <span className={styles.menuTabs}>
-            {!user["isAnonymous"] ? (
+            {user["isAnonymous"] === false ? (
               <button
                 onClick={() => {
                   router.push("/");
@@ -791,7 +791,7 @@ export default function Chat() {
                   {user?.email === null ? "No email" : user?.email}
                 </p>
               </span>
-              {!user["isAnonymous"] ? (
+              {user["isAnonymous"] === false ? (
               <button
                 onClick={() => {
                   router.push("/");
