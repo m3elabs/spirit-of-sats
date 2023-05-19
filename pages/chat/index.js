@@ -274,6 +274,8 @@ const Popup = ({ isOpen, onClose, id }) => {
       </button>
       <div className={styles.addCreditsPopup}>
         <img src="/checks.svg" />
+        { user['isAnonymous'] ? 
+          <>
         <p style={{ color: "rgba(0, 255, 65, 1)" }}>Payment Completed</p>
         <p>Don&apos;t lose your credits, set up an account!</p>
         <button
@@ -284,6 +286,7 @@ const Popup = ({ isOpen, onClose, id }) => {
         >
           Create an account
         </button>
+        </> : null }
       </div>
     </div>
   );
@@ -581,6 +584,9 @@ export default function Chat() {
   };
 
   const handleLogout = () => {
+    if (user['isAnonymous']) {
+      return router.push("/");
+    }
     deleteCookie("token");
     return router.push("/");
   };

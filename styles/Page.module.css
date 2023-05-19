@@ -256,15 +256,16 @@
   background: #212b36;
 }
 
+
 .satoshiMessage span {
   display: flex;
   flex-direction: row;
   align-items: center;
+ flex: flex-grow;
   width: 87%;
   margin: 1% 5%;
   padding: 2% 0;
   line-height: 1.5;
-  height: fit-content;
   overflow-x: none !important;
   font-size: 13px;
 }
