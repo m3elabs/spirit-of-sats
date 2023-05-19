@@ -914,7 +914,7 @@ export default function Chat() {
             }
             if (message.error) {
               return (
-                <div key={index} className={styles.errorMessage}>
+                <div key={index} className={styles.satoshiMessage}>
                   <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
                   <p
                     style={{
