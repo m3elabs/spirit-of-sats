@@ -250,19 +250,23 @@
   flex: 1;
   overflow-y: auto;
   color: white;
+  overflow-x: none;
 }
 
 .satoshiMessage {
   background: #212b36;
 }
 
+.satoshiMessage p {
+  width: 80%;
+}
 
 .satoshiMessage span {
   display: flex;
   flex-direction: row;
   align-items: center;
  flex: flex-grow;
-  width: 87%;
+ width: 87%;
   margin: 1% 5%;
   padding: 2% 0;
   line-height: 1.5;
@@ -336,6 +340,13 @@
   align-items: center;
   justify-content: center;
   gap: 0 25%;
+}
+@media (max-width: 930px) {
+  .interactiveButtons {
+    flex-direction: column;
+    gap:10px 0;
+  }
+
 }
 
 .interactiveButtons button {
