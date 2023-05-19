@@ -334,7 +334,7 @@ const Mission = ({ isOpen, onClose, id }) => {
               display: "-webkit-flex",
               alignItems: "center",
               color: "rgba(0, 255, 65, 1)",
-              marginRight: "5%"
+              marginRight: "5%",
             }}
           >
             <img src="/twitter.svg" />
@@ -392,7 +392,7 @@ const About = ({ isOpen, onClose, id }) => {
           feedback will help me grow and develop.
         </p>
         <div
-          style={{ display: "-webkit-flex", alignItems: "center", gap: "0 3%"}}
+          style={{ display: "-webkit-flex", alignItems: "center", gap: "0 3%" }}
         >
           {" "}
           <a
@@ -401,7 +401,7 @@ const About = ({ isOpen, onClose, id }) => {
               display: "-webkit-flex",
               alignItems: "center",
               color: "rgba(0, 255, 65, 1)",
-              marginRight: "5%"
+              marginRight: "5%",
             }}
           >
             <img src="/twitter.svg" />
@@ -725,7 +725,7 @@ export default function Chat() {
             />
           </span>
           <span className={styles.logo2Placement}>
-            <img alt="logo2" src="/spiritLogo2.svg" style={{ zIndex: 3 }} />
+            <img alt="logo2" src="/spiritLogo2.png" style={{ zIndex: 3 }} />
           </span>
           <span className={styles.placeholder2}></span>
 
@@ -917,15 +917,17 @@ export default function Chat() {
         >
           <span className={styles.inputBoxHints}>
             {questions.map((option) => {
-              return <button
-                onClick={() => {
-                  const input = document.getElementById("transcript");
-                  input.value = option
-                }}
-              >
-                {" "}
-                &quot;{option}&quot;
-              </button>;
+              return (
+                <button
+                  onClick={() => {
+                    const input = document.getElementById("transcript");
+                    input.value = option;
+                  }}
+                >
+                  {" "}
+                  &quot;{option}&quot;
+                </button>
+              );
             })}
           </span>
           <div className={styles.inputContainer}>
@@ -944,7 +946,6 @@ export default function Chat() {
                   sendMessage(inputValue);
                   input.value = "";
                   setTextInput("");
-                 
                 }
               }}
               id="transcript"
@@ -952,11 +953,13 @@ export default function Chat() {
               className={styles.inputBox}
               placeholder="Type or speak message"
             />
-            <button onClick={() => {
-              const input = document.getElementById("transcript");
-              const inputValue = input.value;
-              sendMessage(inputValue)
-            }}>
+            <button
+              onClick={() => {
+                const input = document.getElementById("transcript");
+                const inputValue = input.value;
+                sendMessage(inputValue);
+              }}
+            >
               <img alt="send" src="/send.svg" />
             </button>
           </div>
