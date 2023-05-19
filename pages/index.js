@@ -258,7 +258,7 @@ export default function Home() {
           return;
         }
         if (response.status === 400) {
-          return alert("Email already exists, try loggin in");
+          return alert("Email already exists, try logging in");
         }
       }
       const npub = document.getElementById("npub").value;
@@ -466,7 +466,7 @@ export default function Home() {
                     className={styles.registerInput}
                   />
 
-                  <button onClick={() => nostrLogin()} className={styles.registerButton}>
+                  <button onClick={(event) => nostrLogin(event)} className={styles.registerButton}>
                     Login
                   </button>
                   <p
@@ -570,7 +570,7 @@ export default function Home() {
                     className={styles.registerInput}
                   />
 
-                  <button onClick={() => nostrLogin()}  className={styles.registerButton}>
+                  <button onClick={(event) => nostrLogin(event)}  className={styles.registerButton}>
                     Sign Up
                   </button>
                   <p
