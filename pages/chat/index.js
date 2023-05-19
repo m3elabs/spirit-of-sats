@@ -796,7 +796,7 @@ export default function Chat() {
                 onClick={() => {
                   router.push("/");
                 }}
-                className={styles.createButtonMobile}
+                className={styles.createButton}
               >
                 Create Account
               </button>
