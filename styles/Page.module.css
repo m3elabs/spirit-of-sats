@@ -31,6 +31,7 @@
 }
 
 .thinkingText {
+  width: 10%;
   animation: typing 3s infinite;
   background: rgba(0, 255, 65, 0.6);
   border: 1px solid rgba(0, 255, 65, 1);
