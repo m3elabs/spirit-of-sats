@@ -12,7 +12,7 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const Popup = ({ isOpen, onClose, id }) => {
+const Popup = ({ isOpen, onClose, id , user}) => {
   const [confirmed, setConfirmed] = useState(false);
   const [creditPack, setCreditPack] = useState("");
   const [refresh, setRefresh] = useState(false);
@@ -596,7 +596,7 @@ export default function Chat() {
   const handleThumbsDown = () => {
 
 
-    
+
   }
 
   const handleLogout = () => {
@@ -658,7 +658,7 @@ export default function Chat() {
   return (
     <div className={inter.className}>
       <div className={styles.chat}>
-        <Popup isOpen={isOpen} onClose={handleClosePopup} id="" />
+        <Popup isOpen={isOpen} onClose={handleClosePopup} id="" user={user} key={user} />
         <Mission isOpen={missionOpen} onClose={handleClosePopup} id="" />
         <About isOpen={aboutOpen} onClose={handleClosePopup} id="" />
         <div
