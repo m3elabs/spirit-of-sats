@@ -694,7 +694,7 @@ export default function Chat() {
           </span>
 
           <span className={styles.menuTabs}>
-            {user?.isAnonymous === true ? 
+            {user?.isAnonymous === true ? (
               <button
                 onClick={() => {
                   router.push("/");
@@ -703,7 +703,7 @@ export default function Chat() {
               >
                 Create Account
               </button>
-            : null}
+            ) : null}
 
             <button
               onClick={() => handleOpenPopup()}
@@ -792,15 +792,15 @@ export default function Chat() {
                 </p>
               </span>
               {user?.isAnonymous === true ? (
-              <button
-                onClick={() => {
-                  router.push("/");
-                }}
-                className={styles.createButton}
-              >
-                Create Account
-              </button>
-            ) : null}
+                <button
+                  onClick={() => {
+                    router.push("/");
+                  }}
+                  className={styles.createButton}
+                >
+                  Create Account
+                </button>
+              ) : null}
 
               <button
                 onClick={() => handleOpenPopup()}
@@ -915,20 +915,16 @@ export default function Chat() {
             if (message.error) {
               return (
                 <div key={index} className={styles.satoshiMessage}>
-                  <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
-                  <p
-                    style={{
-                      marginLeft: "3%",
-                    }}
-                  >
-                    {message.text}
-                  </p>
-                  <button
-                    onClick={() => handleOpenPopup()}
-                    className={styles.creditsButtonInChat}
-                  >
-                    Add Credits
-                  </button>
+                  <span>
+                    <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
+                    <p style={{ margin: "0 3%" }}>{message.text}</p>
+                    <button
+                      onClick={() => handleOpenPopup()}
+                      className={styles.creditsButtonInChat}
+                    >
+                      Add Credits
+                    </button>
+                  </span>
                 </div>
               );
             }
