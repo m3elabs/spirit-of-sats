@@ -40,10 +40,6 @@
   margin-left: 3%;
 }
 
-
-
-
-
 .titleModal {
   height: intrinsic; /* Safari/WebKit uses a non-standard name */
   height: -moz-max-content; /* Firefox/Gecko */
@@ -326,8 +322,6 @@
   }
 }
 
-
-
 .interactiveButtons {
   display: flex;
   flex-direction: row;
@@ -437,14 +431,12 @@
   height: 6vh;
   width: 95%;
   margin: 0 3%;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-.inputBoxHints::-webkit-scrollbar-track {
-  background-color: transparent;
-}
-
-.inputBoxHints::-webkit-scrollbar-thumb {
-  background-color: transparent;
+.inputBoxHints::-webkit-scrollbar {
+  display: none;
 }
 
 .inputBoxHints button {
