@@ -289,7 +289,7 @@ export default function Home() {
     try {
       const email = document.getElementById("emailLogin").value;
       const response = await axios.post(
-        "https://api-dev.spiritofsatoshi.ai/v1/account/email/login",
+        "https://api-dev.spiritofsatoshi.ai/v1/account/email/login-otp",
         {
           email: email,
         }
