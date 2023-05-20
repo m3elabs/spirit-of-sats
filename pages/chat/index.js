@@ -460,9 +460,11 @@ export default function Chat() {
   const [showAccount, setShowAccount] = useState(false);
   const [allMessages, setAllMessages] = useState([]);
   const [textInput, setTextInput] = useState("");
+  const [fetchingAudio, setFetchingAudio] = useState({status:false, id:''});
   const [isOpen, setIsOpen] = useState(false);
   const [missionOpen, setMissionOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [color, setColor] = useState(false);
   const questions = [
     "Tell me something about Bitcoin",
     "What's your thoughts on Nostr?",
@@ -493,6 +495,7 @@ export default function Chat() {
   }
 
   const getAudio = async (id) => {
+
     const audioFiles = document.getElementsByTagName("audio");
 
     for (let index = 0; index < audioFiles.length; index++) {
@@ -501,6 +504,7 @@ export default function Chat() {
 
     const auth = getCookie("token");
     const audio = document.getElementById(id);
+    setFetchingAudio({status:true, id:id})
     await axios({
       method: "get",
       url: `https://api-dev.spiritofsatoshi.ai/v1/chat/message/${id}/audio`,
@@ -513,6 +517,7 @@ export default function Chat() {
         if (response.status === 200) {
           audio.src = response.data["voiceUrl"];
           audio.play();
+          setFetchingAudio({status:false, id:id})
         }
       })
       .catch((error) => {
@@ -599,8 +604,8 @@ export default function Chat() {
     })
       .then(async (response) => {
         if (response.status === 200) {
-          const messages = await getMessages()
-          setAllMessages(messages)
+          const messages = await getMessages();
+          setAllMessages(messages);
           return;
         }
       })
@@ -940,7 +945,7 @@ export default function Chat() {
                             d="M4.53755 0.25H12.8625V9.85L7.65005 15.25L6.9188 14.6688C6.8438 14.6063 6.78755 14.5188 6.75005 14.4063C6.71255 14.2938 6.6938 14.1563 6.6938 13.9938V13.8063L7.53755 9.85H1.9313C1.6313 9.85 1.3688 9.7375 1.1438 9.5125C0.918799 9.2875 0.806299 9.025 0.806299 8.725V7.19052C0.806299 7.10101 0.796924 7.00938 0.778174 6.91563C0.759424 6.82188 0.768799 6.73125 0.806299 6.64375L3.1688 1.20625C3.27977 0.940625 3.46474 0.714844 3.72371 0.528906C3.98266 0.342969 4.25394 0.25 4.53755 0.25ZM11.7375 1.375H4.2938L1.9313 6.98125V8.725H8.92505L7.9313 13.3938L11.7375 9.38125V1.375ZM12.8625 9.85V8.725H15.3563V1.375H12.8625V0.25H16.4813V9.85H12.8625Z"
                             fill={
                               message.reaction === "THUMBS_DOWN"
-                                ? 'red'
+                                ? "red"
                                 : "#C5C5D1"
                             }
                           />
@@ -949,6 +954,7 @@ export default function Chat() {
                       <button onClick={() => getAudio(message.id)}>
                         <img src="/playButton.svg" />
                       </button>
+                      {fetchingAudio['id'] === message.id && fetchingAudio['status'] === true ? <div className={styles.spinner}> </div> : null }
                       <audio id={message.id} src=""></audio>
                     </div>
                   </span>
@@ -990,7 +996,7 @@ export default function Chat() {
             if (message.loading === true) {
               return (
                 <div key={index} className={styles.satoshiMessage}>
-                  <span>
+                  <span style={{ width:'5%'}}>
                     <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
 
                     <p className={styles.thinkingText}>...</p>
@@ -1056,7 +1062,21 @@ export default function Chat() {
                 sendMessage(inputValue);
               }}
             >
-              <img alt="send" src="/send.svg" />
+              <svg
+                width="24"
+                height="21"
+                viewBox="0 0 24 21"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                onMouseOver={() => setColor(true)}
+                onMouseLeave={() => setColor(false)}
+              >
+                <path
+                  d="M11.1111 20.7483L0.00773621 5.74295L23.3782 0.0603756L11.1111 20.7483ZM10.9044 17.5269L19.7207 2.76682L2.9759 6.81213L5.89053 10.751L12.6401 8.00622L8.00711 13.6114L10.9044 17.5269Z"
+                  fill="white"
+                  fill-opacity={color ? "1" : "0.2"}
+                />
+              </svg>
             </button>
           </div>
           <div className={styles.footerTag}>
