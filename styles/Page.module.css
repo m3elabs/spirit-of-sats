@@ -38,6 +38,8 @@
   padding: 0 2%;
   border-radius: 8px;
   margin-left: 3%;
+  display: flex;
+  justify-content: center;
 }
 
 .titleModal {
@@ -265,6 +267,12 @@
   vertical-align: top;
 }
 
+.satoshiMessage h3 {
+  width: 10%;
+  padding: 0px;
+  margin: 0 3%;
+}
+
 .satoshiMessage span {
   display: flex;
   flex-direction: row;
@@ -323,6 +331,7 @@
 }
 
 .interactiveButtons {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -404,31 +413,28 @@
   box-shadow: black;
 }
 
-@keyframes spinner {
-  0% {
-    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
   }
-  100% {
-    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
   }
 }
 
-  .spinner::before {
-    animation: 1.5s linear infinite spinner;
-    animation-play-state: inherit;
-    border: solid 5px #cfd0d1;
-    border-bottom-color: rgba(0, 255, 65, 1);;
-    border-radius: 50%;
-    content: "";
-    height: 16px;
-    width: 16px;
-    transform: translate3d(-50%, -50%, 0);
-    will-change: transform;
-  }
-
-
-
-
+.spinner {
+  position: absolute;
+  left: 5vw;
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: rgba(0, 255, 65, 1);
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
 
 .creditsButtonInChat {
   background: rgba(0, 255, 65, 1);

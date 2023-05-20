@@ -954,9 +954,11 @@ export default function Chat() {
                       <button onClick={() => getAudio(message.id)}>
                         <img src="/playButton.svg" />
                       </button>
-                      {fetchingAudio['id'] === message.id && fetchingAudio['status'] === true ? <div className={styles.spinner}> </div> : null }
+                     
                       <audio id={message.id} src=""></audio>
+                      {fetchingAudio['id'] === message.id && fetchingAudio['status'] === true ? <div className={styles.spinner}> </div> : null }
                     </div>
+                   
                   </span>
                 </div>
               );
@@ -996,10 +998,10 @@ export default function Chat() {
             if (message.loading === true) {
               return (
                 <div key={index} className={styles.satoshiMessage}>
-                  <span style={{ width:'5%'}}>
+                  <span >
                     <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
 
-                    <p className={styles.thinkingText}>...</p>
+                    <h3 className={styles.thinkingText}>...</h3>
                   </span>
                 </div>
               );
