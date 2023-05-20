@@ -600,7 +600,7 @@ export default function Home() {
                     fontSize: "11px",
                   }}
                 >
-                  Enter the 6-digit pin you recieved via email
+                  Enter the 6-digit pin we sent you
                 </p>
                 <span className={styles.verifyInputContainer}>
                   <input
