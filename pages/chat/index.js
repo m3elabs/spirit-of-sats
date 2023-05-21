@@ -428,6 +428,104 @@ const About = ({ isOpen, onClose, id }) => {
   );
 };
 
+const Profile = ({ isOpen, onClose, id }) => {
+  const [accountStatus, setAccountStatus] = useState();
+
+  if (!isOpen) {
+    return null;
+  }
+
+  const updateAccount = async () => {
+    const username = document.getElementsByTagName("usernameInput");
+    const auth = getCookie("token");
+    try {
+      const response = await axios({
+        method: "put",
+        url: `https://api-dev.spiritofsatoshi.ai/v1/account/update`,
+        headers: {
+          Authorization: `Bearer ${auth}`,
+        },
+        data: {
+          fullName: username,
+        },
+      });
+      if (response.status === 200) {
+        setAccountStatus("Successful");
+        return;
+      }
+    } catch (error) {
+      setAccountStatus("Error");
+      console.log(error);
+      return;
+    }
+  };
+  return (
+    <div className={styles.overlay}>
+      <div className={styles.profilePopup}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <p style={{ padding: "0", margin: "0" }}>My Profile</p>
+          <button
+            onClick={() => onClose("profile")}
+            style={{
+              padding: "0px",
+              background: "transparent",
+              border: "none",
+            }}
+          >
+            <img alt="close" height="25%" src="/x.svg" />
+          </button>
+        </div>
+        <span
+      className={styles.updateAccountRow}
+        >
+          <img
+            src="/avatar.svg"
+            style={{
+              height: "17vh",
+              border: "1px dashed rgba(145, 158, 171, 0.32)",
+              borderRadius: "100px",
+              padding: "1%",
+              marginRight: "3vw",
+            }}
+            alt="avatar"
+          />
+          <span
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+            }}
+          >
+            <fieldset className={styles.updateAccount}>
+              <legend>Username</legend>
+              <input id="usernameInput"></input>
+            </fieldset>
+            {/* <fieldset className={styles.updateAccount}>
+              <legend>Email</legend>
+              <input></input>
+            </fieldset> */}
+            <button
+              onClick={() => updateAccount()}
+              className={styles.saveChanges}
+            >
+              Save Changes
+            </button>
+          </span>
+      
+        </span>
+        {accountStatus === "Successful" ? <p style={{textAlign:"center", color:'rgba(0, 171, 85, 1)',  fontSize:'12px', width:'40wv'}}>Success!</p> : accountStatus === "Error" ? <p style={{textAlign:"center", color:'red', fontSize:'12px', width:'40wv'}}>You are either not registered, or an error occured on our end. Please try again in a minute </p>: null}
+      </div>
+    </div>
+  );
+};
+
 export default function Chat() {
   // type user = {
   //   id: string;
@@ -460,11 +558,12 @@ export default function Chat() {
   const [showAccount, setShowAccount] = useState(false);
   const [allMessages, setAllMessages] = useState([]);
   const [textInput, setTextInput] = useState("");
-  const [fetchingAudio, setFetchingAudio] = useState({status:false, id:''});
+  const [fetchingAudio, setFetchingAudio] = useState({ status: false, id: "" });
   const [isOpen, setIsOpen] = useState(false);
   const [missionOpen, setMissionOpen] = useState(false);
   const [aboutOpen, setAboutOpen] = useState(false);
   const [color, setColor] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const questions = [
     "Tell me something about Bitcoin",
     "What's your thoughts on Nostr?",
@@ -492,10 +591,12 @@ export default function Chat() {
     if (popup === "popup") {
       setIsOpen(false);
     }
+    if (popup === "profile") {
+      setProfileOpen(false);
+    }
   }
 
   const getAudio = async (id) => {
-
     const audioFiles = document.getElementsByTagName("audio");
 
     for (let index = 0; index < audioFiles.length; index++) {
@@ -504,7 +605,7 @@ export default function Chat() {
 
     const auth = getCookie("token");
     const audio = document.getElementById(id);
-    setFetchingAudio({status:true, id:id})
+    setFetchingAudio({ status: true, id: id });
     await axios({
       method: "get",
       url: `https://api-dev.spiritofsatoshi.ai/v1/chat/message/${id}/audio`,
@@ -517,7 +618,7 @@ export default function Chat() {
         if (response.status === 200) {
           audio.src = response.data["voiceUrl"];
           audio.play();
-          setFetchingAudio({status:false, id:id})
+          setFetchingAudio({ status: false, id: id });
         }
       })
       .catch((error) => {
@@ -682,6 +783,7 @@ export default function Chat() {
         />
         <Mission isOpen={missionOpen} onClose={handleClosePopup} id="" />
         <About isOpen={aboutOpen} onClose={handleClosePopup} id="" />
+        <Profile isOpen={profileOpen} onClose={handleClosePopup} id="" />
         <div
           className={
             openMenu === true ? styles.mobileMenu : styles.mobileMenuClosed
@@ -737,10 +839,13 @@ export default function Chat() {
             >
               Add Credits
             </button>
-            {/* <button style={{ color: " white", background: "transparent" }}>
+            <button
+              onClick={() => setProfileOpen(true)}
+              style={{ color: " white", background: "transparent" }}
+            >
               <img alt="profile" src="/account.svg" />
               My Profile
-            </button> */}
+            </button>
 
             <button
               onClick={() => setAboutOpen(true)}
@@ -837,10 +942,13 @@ export default function Chat() {
 
               <span className={styles.divider}></span>
               <span className={styles.menuTabs}>
-                {/* <button style={{ background: "transparent", color: "white" }}>
+                <button
+                  onClick={() => setProfileOpen(true)}
+                  style={{ background: "transparent", color: "white" }}
+                >
                   <img alt="profile" src="/account.svg" />
                   My Profile
-                </button> */}
+                </button>
                 <button
                   onClick={() => setAboutOpen(true)}
                   style={{ background: "transparent", color: "white" }}
@@ -864,6 +972,7 @@ export default function Chat() {
                 </button>
               </span>
             </span>
+
             <div className={styles.accountInfo}>
               <img
                 src="/avatar.svg"
@@ -954,11 +1063,13 @@ export default function Chat() {
                       <button onClick={() => getAudio(message.id)}>
                         <img src="/playButton.svg" />
                       </button>
-                     
+
                       <audio id={message.id} src=""></audio>
-                      {fetchingAudio['id'] === message.id && fetchingAudio['status'] === true ? <div className={styles.spinner}> </div> : null }
+                      {fetchingAudio["id"] === message.id &&
+                      fetchingAudio["status"] === true ? (
+                        <div className={styles.spinner}> </div>
+                      ) : null}
                     </div>
-                   
                   </span>
                 </div>
               );
@@ -998,7 +1109,7 @@ export default function Chat() {
             if (message.loading === true) {
               return (
                 <div key={index} className={styles.satoshiMessage}>
-                  <span >
+                  <span>
                     <img alt="satoshiAvatar" src="/satoshiAvatar.svg" />
 
                     <h3 className={styles.thinkingText}>...</h3>
@@ -1076,7 +1187,7 @@ export default function Chat() {
                 <path
                   d="M11.1111 20.7483L0.00773621 5.74295L23.3782 0.0603756L11.1111 20.7483ZM10.9044 17.5269L19.7207 2.76682L2.9759 6.81213L5.89053 10.751L12.6401 8.00622L8.00711 13.6114L10.9044 17.5269Z"
                   fill="white"
-                  fill-opacity={color ? "1" : "0.2"}
+                  fillOpacity={color ? "1" : "0.2"}
                 />
               </svg>
             </button>
